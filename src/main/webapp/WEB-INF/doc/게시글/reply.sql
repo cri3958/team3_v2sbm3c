@@ -1,0 +1,17 @@
+DROP TABLE REPLY CASCADE CONSTRAINTS;
+
+/**********************************/
+/* Table Name: 댓글 */
+/**********************************/
+CREATE TABLE REPLY(
+		REPLYNO                       		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
+		MEMBERNO                      		NUMBER(10)		 NULL ,
+		BULLETINNUM                   		NUMBER(10)		 NULL ,
+  FOREIGN KEY (MEMBERNO) REFERENCES MEMBER (MEMBERNO),
+  FOREIGN KEY (BULLETINNUM) REFERENCES BULLETIN (BULLETINNUM)
+);
+
+COMMENT ON TABLE REPLY is '댓글';
+COMMENT ON COLUMN REPLY.REPLYNO is '댓글 번호';
+COMMENT ON COLUMN REPLY.MEMBERNO is '회원 번호';
+COMMENT ON COLUMN REPLY.BULLETINNUM is '게시글 번호';

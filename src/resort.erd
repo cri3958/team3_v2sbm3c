@@ -401,7 +401,7 @@
                               </targetConnections>
                               <error></error>
                               <linkedPath></linkedPath>
-                              <tableName>TABLE_9</tableName>
+                              <tableName>PETDATA</tableName>
                               <logicalName>유기동물 데이터</logicalName>
                               <description></description>
                               <columns>
@@ -1111,8 +1111,8 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>33</x>
-        <y>100</y>
+        <x>31</x>
+        <y>86</y>
       </constraint>
       <sourceConnections/>
       <targetConnections/>
@@ -1133,7 +1133,7 @@
   </children>
   <dommains/>
   <dialectName>Oracle</dialectName>
-  <logicalMode>true</logicalMode>
+  <logicalMode>false</logicalMode>
   <jarFile>C:\kd\setup\ojdbc8.jar</jarFile>
   <jdbcDriver>oracle.jdbc.driver.OracleDriver</jdbcDriver>
   <jdbcUrl>jdbc:oracle:thin:@localhost:1521:XE</jdbcUrl>
