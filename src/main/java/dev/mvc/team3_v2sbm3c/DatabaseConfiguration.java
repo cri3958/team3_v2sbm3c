@@ -1,4 +1,5 @@
 package dev.mvc.team3_v2sbm3c;
+
 import javax.sql.DataSource;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -17,7 +18,10 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @PropertySource("classpath:/application.properties")  // 설정 파일 위치
-@MapperScan(basePackages= {}) // DAO interface를 찾는 위치
+@MapperScan(basePackages= {"dev.mvc.cate",
+                                              "dev.mvc.admin",
+                                              "dev.mvc.contents",
+                                              "dev.mvc.member"}) // DAO interface를 찾는 위치
 public class DatabaseConfiguration {
     
     @Autowired
@@ -51,3 +55,4 @@ public class DatabaseConfiguration {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }
+
