@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**********************************/
 /* Table Name: 관리자 */
 -- 개인 프로젝트에서는 개발자가 유일한 관리자로 처리됨.
@@ -12,6 +13,21 @@ CREATE TABLE ADMIN(
     MDATE      DATE          NOT NULL, -- 가입일    
     GRADE      NUMBER(2)     NOT NULL, -- 등급(1~10: 관리자, 정지 관리자: 20, 탈퇴 관리자: 99)    
     PRIMARY KEY (ADMINNO)              -- 한번 등록된 값은 중복 안됨
+=======
+DROP TABLE ADMIN CASCADE CONSTRAINTS;
+
+/**********************************/
+/* Table Name: 관리자 */
+/**********************************/
+CREATE TABLE ADMIN(
+		ADMINNO                       		NUMBER(5)		 NOT NULL		 PRIMARY KEY,
+		ID                            		VARCHAR2(20)		 NOT NULL,
+		PASSWD                        		VARCHAR2(15)		 NOT NULL,
+		MNAME                         		VARCHAR2(20)		 NOT NULL,
+		MDATE                         		DATE		 NOT NULL,
+		GRADE                         		NUMBER(2)		 NOT NULL,
+  CONSTRAINT SYS_C007060 UNIQUE (ID)
+>>>>>>> 0a97feba68dcf0014e6862f047c35a4e063c79cc
 );
 
 COMMENT ON TABLE ADMIN is '관리자';
@@ -20,6 +36,7 @@ COMMENT ON COLUMN ADMIN.ID is '아이디';
 COMMENT ON COLUMN ADMIN.PASSWD is '패스워드';
 COMMENT ON COLUMN ADMIN.MNAME is '성명';
 COMMENT ON COLUMN ADMIN.MDATE is '가입일';
+<<<<<<< HEAD
 COMMENT ON COLUMN ADMIN.GRADE is '등급';
 
 DROP SEQUENCE ADMIN_SEQ;
@@ -85,3 +102,6 @@ WHERE id='admin1' AND passwd='1234';
 ----------
          1
          
+=======
+COMMENT ON COLUMN ADMIN.GRADE is '등급';
+>>>>>>> 0a97feba68dcf0014e6862f047c35a4e063c79cc

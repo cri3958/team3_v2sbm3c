@@ -24,7 +24,7 @@
   <div style='margin: 0px auto;'>
   <!-- Fotorama data-ratio="100%/66%" -->
   <div class="fotorama"
-         data-autoplay="2000"
+         data-autoplay="1000"
          data-nav="thumbs"
          data-ratio="800/520"
          data-width="100%"

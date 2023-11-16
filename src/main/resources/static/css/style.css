@@ -19,15 +19,15 @@
   */
   .top_img {
     width: 100%;
-    height: 276px;
+    height: 176px;
     background-image: url('/css/images/top_image2_2.jpg');
     margin-bottom: 2px;
   }
   
   .top_menu_label {
     position: relative; /* 속해 있는 부모 태그 기준 설정 */
-    top: 1%;
-    left: 0.5%;
+    top: 50%;
+    left: 45%;
     color: #FFFFFF;
   }
   

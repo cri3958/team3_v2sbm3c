@@ -24,7 +24,7 @@
 
 <div class='container_main'>
   <div class='top_img'>
-    <div class="top_menu_label">나를 찾는 여행 version 4.0</div>      
+    <div class="top_menu_label">유기견 입양</div>      
   </div> <!-- <div class='top_img'></div> 종료 -->
   
 
