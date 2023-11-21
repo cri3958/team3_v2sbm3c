@@ -18,54 +18,73 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src=""></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-<script type="text/javascript">
-    // More API functions here:
-    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-
-    // the link to your model provided by Teachable Machine export panel
-    const URL = "./tensorflow/";
-
-    let model, webcam, labelContainer, maxPredictions;
-
-    // Load the image model and setup the webcam
-    async function init() {
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // or files from your local hard drive
-        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
-
-        // append elements to the DOM
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < maxPredictions; i++) { // and class labels
-            labelContainer.appendChild(document.createElement("div"));
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script>
+        // Load the TensorFlow.js model
+        async function loadModel() {
+            const model = await tf.loadLayersModel('./tensorflow/model.json');
+            return model;
         }
-    }
 
-    async function loop() {
-        webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
-    }
+        // Function to handle image change
+        async function handleImageChange() {
+            const inputElement = document.getElementById('imageInput');
+            const inputImageElement = document.getElementById('inputImage');
+            const predictionResultElement = document.getElementById('predictionResult');
 
-    // run the webcam image through the image model
-    async function predict() {
-        // predict can take in an image, video or canvas html element
-        const prediction = await model.predict(webcam.canvas);
-        for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
+            // Load the selected image
+            const file = inputElement.files[0];
+            const imageUrl = URL.createObjectURL(file);
+            inputImageElement.src = imageUrl;
+
+            // Load the TensorFlow.js model
+            const model = await loadModel();
+
+
+            // Preprocess the image and make a prediction
+            const image = await loadImage(imageUrl);
+            const prediction = await predictImage(model, image);
+            console.log(prediction);
+            // Display the prediction result
+            predictionResultElement.innerHTML = "Prediction: "+prediction;
         }
-    }
-</script>
+
+        // Function to load an image
+        async function loadImage(imageUrl) {
+            const image = new Image();
+            return new Promise((resolve, reject) => {
+                image.onload = () => resolve(tf.browser.fromPixels(image));
+                image.onerror = (error) => reject(error);
+                image.src = imageUrl;
+            });
+        }
+
+        // Function to make a prediction
+        async function predictImage(model, image) {
+            // Preprocess the image if needed
+            // For example, normalize pixel values to be between 0 and 1
+            var normalizedImage = image.toFloat().div(255.0);
+            // Reshape the image to match the input shape expected by your model
+            // For example, if your model expects 224x224 RGB images:
+            const reshapedImage = tf.image.resizeBilinear(normalizedImage, [224, 224]);
+            const expandedImage = reshapedImage.expandDims();
+            // Make a prediction using the loaded TensorFlow.js model
+            const prediction = model.predict(expandedImage);
+            // Process the prediction result as needed
+            // For example, convert the prediction tensor to an array
+            const predictionArray = Array.from(prediction.dataSync());
+            console.log(predictionArray)
+            // Find the index with the highest probability
+            const maxIndex = predictionArray.indexOf(Math.max(...predictionArray));
+            var petlist=["[개] 골든 리트리버","[개] 그레이 하운드","[개] 닥스훈트","[개] 도베르만","도사","[개] 라브라도 리트리버","[고양이] 러시안 블루","[고양이] 레그돌",
+            "[개] 로트와일러","[개] 말라뮤트","[개] 말티즈","[개] 미니어쳐 핀셔","[개] 베들링턴 테리어","[고양이] 벵갈","[개] 보더 콜리","[개] 보스턴 테리어","[개] 불독","[고양이] 브리티시 쇼트헤어",
+            "[개] 비글","[개] 비숑 프리제","[개] 사모예드","[개] 삽살개","[개] 샤페이","[고양이] 샴","[개] 셰퍼드","[개] 슈나우져","[고양이] 스코티시폴드","[개] 스피츠",
+            "[고양이] 스핑크스","[개] 시바","[개] 시베리안 허스키","[개] 시츄","[개] 요크셔 테리어","[개] 웰시 코기","[개] 진도견","[개] 차우차우","[개] 치와와","[개] 코카 스파니엘",
+            "[개] 푸들","[개] 퍼그","[고양이] 페르시안","[개] 포메라니안","[개] 프렌치 불독"]
+            // Return the result (adjust as needed based on your model output)
+            return "Index: "+maxIndex+" Class "+petlist[maxIndex]+", Probability: "+predictionArray[maxIndex].toFixed(4);
+        }
+    </script>
 </head>
 <body>
 <c:import url="/menu/top.do" />
@@ -97,8 +116,11 @@
   </div>
 </div>
 
-<div id="drop-area" style="width: 300px; height: 200px; border: 2px solid; text-align: center; padding: 20px; margin:0px auto; margin-top:10px;">
-  <input type="file" id="file-input">
+<div id="drop-area" style="width: 600px; height: 400px; border: 2px solid; text-align: center; padding: 20px; margin:0px auto; margin-top:10px;">
+  <input type="file" id="imageInput" accept="image/*" onchange="handleImageChange()">
+  <img id="inputImage" src="" alt="Selected Image" style="max-width: 300px;">
+  <h2>Prediction:</h2>
+    <div id="predictionResult"></div>
 </div>
 
 
