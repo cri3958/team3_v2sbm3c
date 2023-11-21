@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>team_v2sbm3c</name>
-	<comment>Project resort_v4sbm3c created by Buildship.</comment>
+	<name>team3_v2sbm3c</name>
+	<comment>Project team3_v2sbm3c created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -38,4 +38,15 @@
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 	</natures>
+	<filteredResources>
+		<filter>
+			<id>1700469360749</id>
+			<name></name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.core.resources.regexFilterMatcher</id>
+				<arguments>node_modules|\.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
 </projectDescription>

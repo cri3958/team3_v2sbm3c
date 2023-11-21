@@ -27,10 +27,8 @@
   
   <aside class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.admin_id != null }">
       <a href="./create.do?cateno=${cateVO.cateno }">등록</a>
       <span class='menu_divide' >│</span>
-    </c:if>
     <a href="javascript:location.reload();">새로고침</a>
     <span class='menu_divide' >│</span>    
     <a href="./list_by_cateno.do?cateno=${param.cateno }&now_page=${param.now_page}&word=${param.word }">목록형</a>    

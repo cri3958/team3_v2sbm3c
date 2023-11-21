@@ -36,6 +36,14 @@
 
       <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
+          
+          <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+              <a class="nav-link top_menu_link" href="?">공고목록 전체보기</a>
+            </li>
+            <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+              <a class="nav-link top_menu_link" href="?">챗봇</a>
+            </li>
+          
             <%-- 게시판 목록 출력 --%>
             <c:forEach var="cateVO" items="${list_top}">
               <c:set var="cateno" value="${cateVO.cateno }" />
@@ -44,10 +52,7 @@
                 <a class="nav-link top_menu_link" href="/contents/list_by_cateno.do?cateno=${cateVO.cateno }&now_page=1">${cateVO.name }</a> 
               </li>
             </c:forEach>
-            
-            <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-              <a class="nav-link top_menu_link" href="/contents/list_all.do">전체 글 목록</a>
-            </li>
+
 
             <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
               <a class="nav-link top_menu_link dropdown-toggle" data-bs-toggle="dropdown" href="#">회원</a>

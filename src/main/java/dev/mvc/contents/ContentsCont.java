@@ -81,7 +81,7 @@ public class ContentsCont {
   public ModelAndView create(HttpServletRequest request, HttpSession session, ContentsVO contentsVO) {
     ModelAndView mav = new ModelAndView();
     
-    if (adminProc.isAdmin(session)) { // 관리자로 로그인한경우
+    
       // ------------------------------------------------------------------------------
       // 파일 전송 코드 시작
       // ------------------------------------------------------------------------------
@@ -154,10 +154,7 @@ public class ContentsCont {
         mav.addObject("url", "/contents/msg"); // msg.jsp, redirect parameter 적용
         mav.setViewName("redirect:/contents/msg.do"); // Post -> Get - param...        
       }
-    } else {
-      mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
-      mav.setViewName("redirect:/contents/msg.do"); 
-    }
+    
     
     return mav; // forward
   }

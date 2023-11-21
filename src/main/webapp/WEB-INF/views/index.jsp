@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,10 +16,61 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src=""></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "./tensorflow/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+    // Load the image model and setup the webcam
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // append elements to the DOM
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function loop() {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    // run the webcam image through the image model
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+    }
+</script>
 </head>
 <body>
 <c:import url="/menu/top.do" />
 
+<div style='margin-top:10px;'>
   <div style='margin: 0px auto;'>
   <!-- Fotorama data-ratio="100%/66%" -->
   <div class="fotorama"
@@ -43,20 +93,19 @@
     <img src="/jquery/fotorama/images/winter07.jpg">
     <img src="/jquery/fotorama/images/winter08.jpg">
     <img src="/jquery/fotorama/images/winter09.jpg">
-    <img src="/jquery/fotorama/images/winter10.jpg">
-    <img src="/jquery/fotorama/images/winter11.jpg">
-    <img src="/jquery/fotorama/images/winter12.jpg">
-    <img src="/jquery/fotorama/images/winter13.jpg">
-    <img src="/jquery/fotorama/images/winter14.jpg">
-    <img src="/jquery/fotorama/images/winter15.jpg">
-    <img src="/jquery/fotorama/images/winter16.jpg">
-    <img src="/jquery/fotorama/images/winter17.jpg">
-    <img src="/jquery/fotorama/images/winter18.jpg">
-    <img src="/jquery/fotorama/images/winter19.jpg">
-    <img src="/jquery/fotorama/images/winter20.jpg">    
+    <img src="/jquery/fotorama/images/winter10.jpg">   
   </div>
 </div>
 
+<div id="drop-area" style="width: 300px; height: 200px; border: 2px solid; text-align: center; padding: 20px; margin:0px auto; margin-top:10px;">
+  <input type="file" id="file-input">
+</div>
+
+
+
+
 <jsp:include page="./menu/bottom.jsp" flush='false' /> 
 </body>
+
+</div>
 </html>
