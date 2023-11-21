@@ -84,6 +84,7 @@
             // Return the result (adjust as needed based on your model output)
             return "Index: "+maxIndex+" Class "+petlist[maxIndex]+", Probability: "+predictionArray[maxIndex].toFixed(4);
         }
+
     </script>
 </head>
 <body>
@@ -130,4 +131,31 @@
 </body>
 
 </div>
+<script >
+    const dropbox = document.getElementById('drop-area');
+    const file = document.getElementById('imageInput');
+
+    //박스 안에 drag 하고 있을 때
+    dropbox.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    this.style.backgroundColor = 'rgb(13 110 253 / 25%)';
+    });
+  
+    //박스 밖으로 drag가 나갈 때
+    dropbox.addEventListener('dragleave', function (e) {
+    this.style.backgroundColor = 'white';
+    });
+  
+    //박스 안에 drop 했을 때
+    dropbox.addEventListener('drop', function (e) {
+    e.preventDefault();
+    this.style.backgroundColor = 'white';
+  
+    //파일 이름을 text로 표시
+    let filename = e.dataTransfer.files;
+    console.log(filename);
+    file.files = filename;
+    handleImageChange();
+  });
+</script>
 </html>
