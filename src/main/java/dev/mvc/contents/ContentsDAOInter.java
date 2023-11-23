@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import dev.mvc.cate.CateVO;
 
 /**
  * Spring Boot가 자동 구현

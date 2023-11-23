@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.notices.NoticesDAOInter">
+    <select id="list_all" resultType="dev.mvc.notices.NoticesVO">
+    SELECT noticesno, noticenumber, imageurl, receiptdate, state, publicnoticestart, publicnoticeend, species, gender, discoveryplace, characteristic, colorcd, age, weight
+    FROM notices
+    ORDER BY noticesno DESC
+  </select>
+</mapper>

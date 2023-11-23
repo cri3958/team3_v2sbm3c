@@ -16,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
-import dev.mvc.cate.CateProcInter;
-import dev.mvc.cate.CateVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -27,9 +25,6 @@ public class ContentsCont {
   @Qualifier("dev.mvc.admin.AdminProc") // @Component("dev.mvc.admin.AdminProc")
   private AdminProcInter adminProc;
   
-  @Autowired
-  @Qualifier("dev.mvc.cate.CateProc")  // @Component("dev.mvc.cate.CateProc")
-  private CateProcInter cateProc;
   
   @Autowired
   @Qualifier("dev.mvc.contents.ContentsProc") // @Component("dev.mvc.contents.ContentsProc")
@@ -63,8 +58,8 @@ public class ContentsCont {
 //  public ModelAndView create(HttpServletRequest request,  int cateno) {
     ModelAndView mav = new ModelAndView();
 
-    CateVO cateVO = this.cateProc.read(cateno); // create.jsp에 카테고리 정보를 출력하기위한 목적
-    mav.addObject("cateVO", cateVO);
+    //CateVO cateVO = this.cateProc.read(cateno); // create.jsp에 카테고리 정보를 출력하기위한 목적
+    //mav.addObject("cateVO", cateVO);
 //    request.setAttribute("cateVO", cateVO);
     
     mav.setViewName("/contents/create"); // /webapp/WEB-INF/views/contents/create.jsp
@@ -273,8 +268,6 @@ public class ContentsCont {
     
     mav.addObject("list", list);
   
-    CateVO cateVO = cateProc.read(contentsVO.getCateno());
-    mav.addObject("cateVO", cateVO);
   
     HashMap<String, Object> hashMap = new HashMap<String, Object>();
     hashMap.put("cateno", contentsVO.getCateno());
@@ -336,8 +329,6 @@ public class ContentsCont {
      
      mav.addObject("list", list);
    
-     CateVO cateVO = cateProc.read(contentsVO.getCateno());
-     mav.addObject("cateVO", cateVO);
      
      HashMap<String, Object> hashMap = new HashMap<String, Object>();
      hashMap.put("cateno", contentsVO.getCateno());
@@ -393,8 +384,6 @@ public class ContentsCont {
     
     mav.addObject("contentsVO", contentsVO);
     
-    CateVO cateVO = this.cateProc.read(contentsVO.getCateno());
-    mav.addObject("cateVO", cateVO);
     
     return mav;
   }
@@ -411,8 +400,6 @@ public class ContentsCont {
     ContentsVO contentsVO = this.contentsProc.read(contentsno); // map 정보 읽어 오기
     mav.addObject("contentsVO", contentsVO); // request.setAttribute("contentsVO", contentsVO);
 
-    CateVO cateVO = this.cateProc.read(contentsVO.getCateno()); // 그룹 정보 읽기
-    mav.addObject("cateVO", cateVO); 
 
     mav.setViewName("/contents/map"); // /WEB-INF/views/contents/map.jsp
         
@@ -453,8 +440,6 @@ public class ContentsCont {
     ContentsVO contentsVO = this.contentsProc.read(contentsno); // map 정보 읽어 오기
     mav.addObject("contentsVO", contentsVO); // request.setAttribute("contentsVO", contentsVO);
 
-    CateVO cateVO = this.cateProc.read(contentsVO.getCateno()); // 그룹 정보 읽기
-    mav.addObject("cateVO", cateVO); 
 
     mav.setViewName("/contents/youtube"); // /WEB-INF/views/contents/youtube.jsp
         
@@ -501,9 +486,7 @@ public class ContentsCont {
     if (adminProc.isAdmin(session)) { // 관리자로 로그인한경우
       ContentsVO contentsVO = this.contentsProc.read(contentsno);
       mav.addObject("contentsVO", contentsVO);
-      
-      CateVO cateVO = this.cateProc.read(contentsVO.getCateno());
-      mav.addObject("cateVO", cateVO);
+     
       
       mav.setViewName("/contents/update_text"); // /WEB-INF/views/contents/update_text.jsp
       // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
@@ -574,9 +557,7 @@ public class ContentsCont {
     if (adminProc.isAdmin(session)) { // 관리자로 로그인한경우
       ContentsVO contentsVO = this.contentsProc.read(contentsno);
       mav.addObject("contentsVO", contentsVO);
-      
-      CateVO cateVO = this.cateProc.read(contentsVO.getCateno());
-      mav.addObject("cateVO", cateVO);
+     
       
       mav.setViewName("/contents/update_file"); // /WEB-INF/views/contents/update_file.jsp
       
@@ -684,9 +665,6 @@ public class ContentsCont {
     if (adminProc.isAdmin(session)) { // 관리자로 로그인한경우
       ContentsVO contentsVO = this.contentsProc.read(contentsno);
       mav.addObject("contentsVO", contentsVO);
-      
-      CateVO cateVO = this.cateProc.read(contentsVO.getCateno());
-      mav.addObject("cateVO", cateVO);
       
       mav.setViewName("/contents/delete"); // /WEB-INF/views/contents/delete.jsp
       

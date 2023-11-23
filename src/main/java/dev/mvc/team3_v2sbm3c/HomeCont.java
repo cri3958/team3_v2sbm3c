@@ -9,14 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.cate.CateProcInter;
-import dev.mvc.cate.CateVO;
-
 @Controller
 public class HomeCont {
-  @Autowired // CateProcInter interface 구현한 객체를 만들어 자동으로 할당해라.
-  @Qualifier("dev.mvc.cate.CateProc")
-  private CateProcInter cateProc;
   
   public HomeCont() {
     System.out.println("-> HomeCont created.");
@@ -39,9 +33,6 @@ public class HomeCont {
   @RequestMapping(value= {"/menu/top.do"}, method=RequestMethod.GET)
   public ModelAndView top() {
     ModelAndView mav = new ModelAndView();
-
-    ArrayList<CateVO> list_top = this.cateProc.list_all_y();
-    mav.addObject("list_top", list_top);
     
     mav.setViewName("/menu/top"); // /WEB-INF/views/menu/top.jsp
     

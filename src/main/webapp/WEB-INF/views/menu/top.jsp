@@ -38,20 +38,16 @@
           <ul class="navbar-nav mr-auto">
           
           <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-              <a class="nav-link top_menu_link" href="?">공고목록 전체보기</a>
+              <a class="nav-link top_menu_link" href="/notices/list_all.do">공고목록 전체보기</a>
             </li>
             <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
               <a class="nav-link top_menu_link" href="?">챗봇</a>
             </li>
           
-            <%-- 게시판 목록 출력 --%>
-            <c:forEach var="cateVO" items="${list_top}">
-              <c:set var="cateno" value="${cateVO.cateno }" />
-              <c:set var="name" value="${cateVO.name }" />
               <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                <a class="nav-link top_menu_link" href="/contents/list_by_cateno.do?cateno=${cateVO.cateno }&now_page=1">${cateVO.name }</a> 
+                <a class="nav-link top_menu_link" href="/contents/list_all.do?now_page=1">커뮤니티</a> 
               </li>
-            </c:forEach>
+
 
 
             <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
@@ -84,7 +80,6 @@
                 <li class="nav-item dropdown"> <%-- 관리자 서브 메뉴 --%>
                   <a class="nav-link top_menu_link dropdown-toggle" data-bs-toggle="dropdown" href="#">관리자</a>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href='/cate/list_all.do'>카테고리 전체 목록</a>
                     <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
                     <a class="dropdown-item" href='/admin/logout.do'>관리자 ${sessionScope.admin_id } 로그아웃</a>
                   </div>
