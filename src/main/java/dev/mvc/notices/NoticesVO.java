@@ -1,5 +1,4 @@
 package dev.mvc.notices;
-import org.springframework.web.multipart.MultipartFile;
 
 //@Getter @Setter @ToString
 public class NoticesVO {
@@ -18,6 +17,10 @@ public class NoticesVO {
     private String colorcd;
     private String age;
     private String weight;
+    private String orgNm;
+    private String careAddr;
+    private String officetel;
+    private String careNm;
     
     // 페이징 관련
     // -----------------------------------------------------------------------------------
@@ -111,6 +114,30 @@ public class NoticesVO {
     public void setWeight(String weight) {
       this.weight = weight;
     }
+    public String getOrgNm() {
+      return orgNm;
+    }
+    public void setOrgNm(String orgNm) {
+      this.orgNm = orgNm;
+    }
+    public String getCareAddr() {
+      return careAddr;
+    }
+    public void setCareAddr(String careAddr) {
+      this.careAddr = careAddr;
+    }
+    public String getOfficetel() {
+      return officetel;
+    }
+    public void setOfficetel(String officetel) {
+      this.officetel = officetel;
+    }
+    public String getCareNm() {
+      return careNm;
+    }
+    public void setCareNm(String careNm) {
+      this.careNm = careNm;
+    }
     public int getStart_num() {
       return start_num;
     }
@@ -136,10 +163,8 @@ public class NoticesVO {
           + ", receiptdate=" + receiptdate + ", state=" + state + ", publicnoticestart=" + publicnoticestart
           + ", publicnoticeend=" + publicnoticeend + ", species=" + species + ", gender=" + gender + ", discoveryplace="
           + discoveryplace + ", characteristic=" + characteristic + ", colorcd=" + colorcd + ", age=" + age
-          + ", weight=" + weight + ", start_num=" + start_num + ", end_num=" + end_num + ", now_page=" + now_page + "]";
+          + ", weight=" + weight + ", orgNm=" + orgNm + ", careAddr=" + careAddr + ", officetel=" + officetel
+          + ", careNm=" + careNm + ", start_num=" + start_num + ", end_num=" + end_num + ", now_page=" + now_page + "]";
     }
-    
-    
-    
         
 }

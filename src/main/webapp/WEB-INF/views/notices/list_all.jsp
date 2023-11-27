@@ -35,7 +35,7 @@
       <tr>
         <th style='text-align: center;'>파일</th>
         <th style='text-align: center;'>제목</th>
-        <th style='text-align: center;'>기타</th>
+        <th style='text-align: center;'>관리메뉴</th>
       </tr>
     </thead>
     <tbody>
@@ -50,9 +50,8 @@
               <span style="font-weight: bold;">${noticesVO.noticenumber }</span><br>
             </td>
             <td class="td_bs">
-              <a href="#" title="삭제"><img src="/contents/images/map.png" class="icon"></a>
-              <a href="#" title="삭제"><img src="/contents/images/youtube.png" class="icon"></a>
-              <a href="#" title="삭제"><img src="/contents/images/delete.png" class="icon"></a>
+              <a href="#" title="수정"><img src="/images/update.png" class="icon"></a>
+              <a href="#" title="삭제"><img src="/images/delete.png" class="icon"></a>
             </td>
           </tr>
         </c:forEach>

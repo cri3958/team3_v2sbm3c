@@ -13,5 +13,4 @@ public interface NoticesProcInter {
   public int update(NoticesVO noticesVO);
   
   public int delete(int noticesno);
-  
 }

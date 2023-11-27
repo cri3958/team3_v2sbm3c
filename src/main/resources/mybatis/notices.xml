@@ -4,8 +4,15 @@
 
 <mapper namespace="dev.mvc.notices.NoticesDAOInter">
     <select id="list_all" resultType="dev.mvc.notices.NoticesVO">
-    SELECT noticesno, noticenumber, imageurl, receiptdate, state, publicnoticestart, publicnoticeend, species, gender, discoveryplace, characteristic, colorcd, age, weight
-    FROM notices
-    ORDER BY noticesno DESC
+        SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm
+        FROM NOTICES
+        ORDER BY noticesno DESC
+  </select>
+  
+    
+  <select id="read" resultType="dev.mvc.notices.NoticesVO" parameterType="int">
+        SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm
+        FROM NOTICES
+        WHERE noticesno = #{noticesno}
   </select>
 </mapper>
