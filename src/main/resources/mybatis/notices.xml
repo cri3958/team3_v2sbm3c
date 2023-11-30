@@ -15,4 +15,16 @@
         FROM NOTICES
         WHERE noticesno = #{noticesno}
   </select>
+  
+    <update id="update_text" parameterType="dev.mvc.notices.NoticesVO" >
+    UPDATE NOTICES
+    SET receiptdate=#{receiptdate},species=#{species},gender=#{gender},discoveryplace=#{discoveryplace},characteristic=#{characteristic},state=#{state},publicnoticestart=#{publicnoticestart},publicnoticeend=#{publicnoticeend},colorcd=#{colorcd},age=#{age},weight=#{weight}
+    WHERE noticesno = #{noticesno}
+  </update>
+  
+  <!-- 특정 카테고리에 속한 모든 레코드 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM NOTICES
+    WHERE noticesno = #{noticesno}
+  </delete>
 </mapper>

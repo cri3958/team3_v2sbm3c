@@ -28,8 +28,8 @@ public class NoticesProc implements NoticesProcInter {
   }
 
   @Override
-  public int update(NoticesVO noticesVO) {
-    int cnt = this.noticesDAO.update(noticesVO);
+  public int update_text(NoticesVO noticesVO) {
+    int cnt = this.noticesDAO.update_text(noticesVO);
     return cnt;
   }
 

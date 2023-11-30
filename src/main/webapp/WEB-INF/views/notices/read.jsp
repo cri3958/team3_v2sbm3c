@@ -74,6 +74,7 @@
         <span>${state}</span><br>
         <span>${publicnoticestart}</span><br>
         <span>${publicnoticeend}</span><br>
+        <span>${species}</span><br>
         <span>${gender}</span><br>
         <span>${discoveryplace}</span><br>
         <span>${characteristic}</span><br>

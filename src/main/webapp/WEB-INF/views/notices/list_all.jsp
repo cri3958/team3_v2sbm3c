@@ -44,14 +44,14 @@
     
           <tr onclick="location.href='./read.do?noticesno=${noticesno}'" style="cursor: pointer;">
             <td>
-                <img src="/contents/images/none1.png" style="width: 120px; height: 90px;">
+                <img src="${noticesVO.imageurl }" style="width: 120px; height: 90px;">
             </td>
             <td class="td_bs_left">
               <span style="font-weight: bold;">${noticesVO.noticenumber }</span><br>
             </td>
             <td class="td_bs">
-              <a href="#" title="수정"><img src="/images/update.png" class="icon"></a>
-              <a href="#" title="삭제"><img src="/images/delete.png" class="icon"></a>
+              <a href="/notices/update_text.do?noticesno=${noticesno }" title="수정"><img src="/images/update.png" class="icon"></a>
+              <a href="/notices/delete.do?noticesno=${noticesno }" title="삭제"><img src="/images/delete.png" class="icon"></a>
             </td>
           </tr>
         </c:forEach>

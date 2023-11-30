@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.contents.Contents;
+import dev.mvc.contents.ContentsVO;
+import dev.mvc.tool.Tool;
+
 @Controller
 public class NoticesCont {
   @Autowired
@@ -68,16 +72,56 @@ public class NoticesCont {
   }
   
   //수정 폼
-  @RequestMapping(value="/notices/update.do", method = RequestMethod.GET)
-  public ModelAndView update(int noticesno) { 
+  @RequestMapping(value="/notices/update_text.do", method = RequestMethod.GET)
+  public ModelAndView update_text(int noticesno) { 
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/notices/update"); 
+    mav.setViewName("/notices/update_text"); 
     
     NoticesVO noticesVO = this.noticesProc.read(noticesno);
     
-    mav.addObject("noticesVO",noticesVO);    
+    mav.addObject("noticesVO",noticesVO);
+    mav.addObject("noticesno",noticesVO.getNoticesno());
     
     return mav;
   }
+  
+  //수정 처리
+  @RequestMapping(value = "/notices/update_text.do", method = RequestMethod.POST)
+  public ModelAndView update_text(NoticesVO noticesVO) {
+    ModelAndView mav = new ModelAndView();
+ 
+    // mav 객체 이용
+    this.noticesProc.update_text(noticesVO); // 글수정
+
+    mav.addObject("noticesno", noticesVO.getNoticesno());
+    mav.setViewName("redirect:/notices/read.do?"); // 페이지 자동 이동 
+        
+
+    return mav; // forward
+  }
+  
+  //삭제폼
+  @RequestMapping(value = "/notices/delete.do", method = RequestMethod.GET)
+  public ModelAndView delete(int noticesno) {
+    ModelAndView mav = new ModelAndView();
+    
+    NoticesVO noticesVO = this.noticesProc.read(noticesno);
+    mav.addObject("noticesVO", noticesVO);
+      
+    mav.setViewName("/notices/delete");
+
+    return mav; // forward
+  }
+  
+  @RequestMapping(value = "/notices/delete.do", method = RequestMethod.POST)
+  public ModelAndView delete(NoticesVO noticesVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    this.noticesProc.delete(noticesVO.getNoticesno()); // DBMS 삭제
+
+    mav.setViewName("redirect:/notices/list_all.do"); 
+    
+    return mav;
+  }   
   
 }
