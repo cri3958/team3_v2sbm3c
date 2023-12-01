@@ -21,6 +21,8 @@
   <div class='title_line'>전체 글 목록</div>
   
   <aside class="aside_right">
+    <a href="./create.do">등록하기</a>
+    <span class='menu_divide' >│</span>
     <a href="javascript:location.reload();">새로고침</a>
   </aside>
   <div class="menu_line"></div> 
@@ -44,7 +46,14 @@
     
           <tr onclick="location.href='./read.do?noticesno=${noticesno}'" style="cursor: pointer;">
             <td>
-                <img src="${noticesVO.imageurl }" style="width: 120px; height: 90px;">
+         <c:choose> 
+          <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
+            <img src="${noticesVO.imageurl }" style="width: 120px; height: 90px;">
+          </c:when>
+          <c:otherwise>
+            <img src="/notices/storage/${noticesVO.imageurl }" style="width: 120px; height: 90px;">
+          </c:otherwise>
+        </c:choose>
             </td>
             <td class="td_bs_left">
               <span style="font-weight: bold;">${noticesVO.noticenumber }</span><br>

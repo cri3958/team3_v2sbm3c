@@ -4,7 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import dev.mvc.contents.Contents;
+import dev.mvc.notices.Notices;
+
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
@@ -17,7 +18,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
       // ▶ file:////home/ubuntu/deploy/resort_v2sbm3c_blog/contents/storage
     
       // JSP 인식되는 경로: http://localhost:9091/contents/storage";
-      registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" +  Contents.getUploadDir());
+      registry.addResourceHandler("/notices/storage/**").addResourceLocations("file:///" +  Notices.getUploadDir());
       
       // JSP 인식되는 경로: http://localhost:9091/attachfile/storage";
       // registry.addResourceHandler("/attachfile/storage/**").addResourceLocations("file:///" +  Tool.getOSPath() + "/attachfile/storage/");

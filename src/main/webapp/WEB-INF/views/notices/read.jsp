@@ -16,10 +16,10 @@
 <c:set var="colorcd" value="${noticesVO.colorcd }" />
 <c:set var="age" value="${noticesVO.age }" />
 <c:set var="weight" value="${noticesVO.weight }" />
-<c:set var="orgNm" value="${noticesVO.orgNm }" />
-<c:set var="careAddr" value="${noticesVO.careAddr }" />
+<c:set var="orgnm" value="${noticesVO.orgnm }" />
+<c:set var="careaddr" value="${noticesVO.careaddr }" />
 <c:set var="officetel" value="${noticesVO.officetel }" />
-<c:set var="careNm" value="${noticesVO.careNm }" />
+<c:set var="carenm" value="${noticesVO.carenm }" />
 
 
 <!DOCTYPE html>
@@ -59,15 +59,14 @@
     <ul>
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
-          <c:choose>
-            <c:when test="${imageurl.startsWith('http://www.animal.go.kr/files/shelter/') }">
-              <%-- /static/contents/storage/ --%>
-              <img src="${imageurl }" style='width: 60%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
-            </c:when>
-            <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/contents/images/none1.png" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
-            </c:otherwise>
-          </c:choose>
+        <c:choose> 
+          <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
+            <img src="${noticesVO.imageurl }" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
+          </c:when>
+          <c:otherwise>
+            <img src="/notices/storage/${noticesVO.imageurl }" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
+          </c:otherwise>
+        </c:choose>
 
         <span>${noticenumber}</span><br>
         <span>${receiptdate}</span><br>
@@ -84,12 +83,13 @@
         
         </DIV>
       </li>
+              <br><br>
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
-            <span>${orgNm}</span><br>
-            <span>${careAddr}</span><br>
+            <span>${orgnm}</span><br>
+            <span>${careaddr}</span><br>
             <span>${officetel}</span><br>
-            <span>${careNm}</span><br>
+            <span>${carenm}</span><br>
         </DIV>
       </li>
       
