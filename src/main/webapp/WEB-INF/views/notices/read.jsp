@@ -37,16 +37,16 @@
 </head>
 <body>
 <c:import url="/menu/top.do" />
-<DIV class='title_line'><A href="./list_by_cateno.do?cateno=${cateVO.cateno }" class='title_link'>${cateVO.name }</A></DIV>
+<DIV class='title_line'><A href="./list_by_search.do?cateno=${cateVO.cateno }" class='title_link'>${cateVO.name }</A></DIV>
 
   <aside class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
     <c:if test="${sessionScope.admin_id != null }">
       <a href="./create.do?cateno=${cateno }">등록</a>
       <span class='menu_divide' >│</span>
-      <a href="./update_text.do?contentsno=${contentsno}&now_page=${param.now_page}&word=${param.word }">글 수정</a>  
+      <a href="./update_text.do?noticesno=${noticesno}&now_page=${param.now_page}&word=${param.word }">글 수정</a>  
       <span class='menu_divide' >│</span>
-      <a href="./delete.do?contentsno=${contentsno}&now_page=${param.now_page}&cateno=${cateno}">삭제</a>  
+      <a href="./delete.do?noticesno=${noticesno}&now_page=${param.now_page}">삭제</a>  
       <span class='menu_divide' >│</span>
     </c:if>
 
@@ -63,37 +63,40 @@
           <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
             <img src="${noticesVO.imageurl }" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
           </c:when>
+          <c:when test="${noticesVO.imageurl=='123'}"> 
+            <img src="https://github.com/cri3958/team3_v2sbm3c/assets/48902673/f9700263-3561-48d5-872d-b272a1df533f" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
+          </c:when>
           <c:otherwise>
             <img src="/notices/storage/${noticesVO.imageurl }" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
           </c:otherwise>
         </c:choose>
 
-        <span>${noticenumber}</span><br>
-        <span>${receiptdate}</span><br>
-        <span>${state}</span><br>
-        <span>${publicnoticestart}</span><br>
-        <span>${publicnoticeend}</span><br>
-        <span>${species}</span><br>
-        <span>${gender}</span><br>
-        <span>${discoveryplace}</span><br>
-        <span>${characteristic}</span><br>
-        <span>${colorcd}</span><br>
-        <span>${age}</span><br>
-        <span>${weight}</span><br>
+        <span>공고번호 : ${noticenumber}</span><br>
+        <span>공고 접수일 : ${receiptdate}</span><br>
+        <span>공고 상태 : ${state}</span><br>
+        <span>공고 시작일 : ${publicnoticestart}</span><br>
+        <span>공고 종료예정일 : ${publicnoticeend}</span><br>
+        <span>유기동물 종 : ${species}</span><br>
+        <span>유기동물 성별 : ${gender}</span><br>
+        <span>유기동물 발견장소 : ${discoveryplace}</span><br>
+        <span>유기동물 성격 : ${characteristic}</span><br>
+        <span>유기동물 털색 : ${colorcd}</span><br>
+        <span>유기동물 나이(추정) : ${age}</span><br>
+        <span>유기동물 체중 : ${weight}</span><br>
         
         </DIV>
       </li>
-              <br><br>
-      <li class="li_none">
+    </ul>
+    <ul>
+     <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
-            <span>${orgnm}</span><br>
-            <span>${careaddr}</span><br>
-            <span>${officetel}</span><br>
-            <span>${carenm}</span><br>
+            <span>보호기관 관할 : ${orgnm}</span><br>
+            <span>보호기관 주소 : ${careaddr}</span><br>
+            <span>보호기관 전화번호 : ${officetel}</span><br>
+            <span>보호기관 명 : ${carenm}</span><br>
         </DIV>
       </li>
-      
-    </ul>
+      </ul>
   </fieldset>
 
 </DIV>

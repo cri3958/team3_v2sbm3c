@@ -60,7 +60,10 @@ public class Tool {
           || file.endsWith("ppt") || file.endsWith("pptx") || file.endsWith("zip") || file.endsWith("tar")
           || file.endsWith("gz") || file.endsWith("ipynb") || file.endsWith("doc")) {
         sw = true;
+        System.out.println("-> file is not null"+file);
       }
+    }else {
+      System.out.println("-> file is null");
     }
     return sw;
   }

@@ -33,4 +33,56 @@
     DELETE FROM NOTICES
     WHERE noticesno = #{noticesno}
   </delete>
+  
+  <!-- 카테고리별 검색 레코드 갯수 -->
+  <select id="search_count" resultType="int" parameterType="HashMap">
+    SELECT COUNT(*) as cnt
+    FROM NOTICES
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+
+      </when>
+      <otherwise>
+        WHERE (UPPER(noticenumber) LIKE '%' || UPPER(#{word}) || '%' 
+                                          OR UPPER(species) LIKE '%' || UPPER(#{word}) || '%'
+                                          OR UPPER(discoveryplace) LIKE '%' || UPPER(#{word}) || '%'
+                                          OR UPPER(characteristic) LIKE '%' || UPPER(#{word}) || '%'
+                                          OR UPPER(colorcd) LIKE '%' || UPPER(#{word}) || '%'
+                                          OR UPPER(orgnm) LIKE '%' || UPPER(#{word}) || '%'
+                                          OR UPPER(careaddr) LIKE '%' || UPPER(#{word}) || '%')
+      </otherwise>
+    </choose>
+  </select>
+  
+  <!-- 카테고리별 검색 + 페이징 목록 -->
+  <select id="list_by_search_paging" resultType="dev.mvc.notices.NoticesVO" parameterType="dev.mvc.notices.NoticesVO">
+   SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm, r
+   FROM (
+              SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm, rownum as r
+              FROM (
+                        SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm
+                        FROM NOTICES
+                        <choose>
+                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                            
+                          </when>
+                          <otherwise>
+                            WHERE (UPPER(noticenumber) LIKE '%' || UPPER(#{word}) || '%' 
+                                                              OR UPPER(species) LIKE '%' || UPPER(#{word}) || '%'
+                                                              OR UPPER(discoveryplace) LIKE '%' || UPPER(#{word}) || '%'
+                                                              OR UPPER(characteristic) LIKE '%' || UPPER(#{word}) || '%'
+                                                              OR UPPER(colorcd) LIKE '%' || UPPER(#{word}) || '%'
+                                                              OR UPPER(orgnm) LIKE '%' || UPPER(#{word}) || '%'
+                                                              OR UPPER(careaddr) LIKE '%' || UPPER(#{word}) || '%')
+                          </otherwise>
+                        </choose>
+                        ORDER BY noticesno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+     
+    <!-- 1 page: WHERE r >= 1 AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
 </mapper>

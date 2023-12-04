@@ -38,7 +38,7 @@
           <ul class="navbar-nav mr-auto">
           
           <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-              <a class="nav-link top_menu_link" href="/notices/list_all.do">공고목록 전체보기</a>
+              <a class="nav-link top_menu_link" href="/notices/list_by_search.do?now_page=1">공고목록 전체보기</a>
             </li>
             <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
               <a class="nav-link top_menu_link" href="?">챗봇</a>

@@ -88,7 +88,7 @@
         </c:choose>
         
         <button type='button' onclick="location.href='./create.do'" class="btn btn-secondary btn-sm">새로운 공고 등록</button>
-        <button type='button' onclick="location.href='./list_all.do'" class="btn btn-secondary btn-sm">목록</button>
+        <button type='button' onclick="location.href='./list_by_search.do?now_page=1'" class="btn btn-secondary btn-sm">목록</button>
       </li>
     </UL>
   </fieldset>

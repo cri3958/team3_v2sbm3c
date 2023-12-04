@@ -34,6 +34,10 @@ public class NoticesVO {
     private int end_num;    
     /** 현재 페이지 */
     private int now_page = 1;
+    
+    private String word="";
+    
+    
     public int getNoticesno() {
       return noticesno;
     }
@@ -168,6 +172,15 @@ public class NoticesVO {
     public void setImagemf(MultipartFile imagemf) {
       this.imagemf = imagemf;
     }
+    
+    
+    
+    public String getWord() {
+      return word;
+    }
+    public void setWord(String word) {
+      this.word = word;
+    }
     @Override
     public String toString() {
       return "NoticesVO [noticesno=" + noticesno + ", noticenumber=" + noticenumber + ", imageurl=" + imageurl
@@ -176,11 +189,8 @@ public class NoticesVO {
           + discoveryplace + ", characteristic=" + characteristic + ", colorcd=" + colorcd + ", age=" + age
           + ", weight=" + weight + ", orgnm=" + orgnm + ", careaddr=" + careaddr + ", officetel=" + officetel
           + ", carenm=" + carenm + ", imagemf=" + imagemf + ", start_num=" + start_num + ", end_num=" + end_num
-          + ", now_page=" + now_page + "]";
+          + ", now_page=" + now_page + ", word=" + word + "]";
     }
-    
-    
-
     
     
 }
