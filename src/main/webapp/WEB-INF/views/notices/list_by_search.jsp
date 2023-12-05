@@ -18,13 +18,39 @@
 <body>
 <c:import url="/menu/top.do" />
 
-  <div class='title_line'>전체 글 목록</div>
+<div class='title_line'>
+    전체 글 목록
+    <c:if test="${param.word.length() > 0 }">
+      > 「${param.word }」 검색
+    </c:if> 
+    ${search_count } 건
+  </div>
   
   <aside class="aside_right">
     <a href="./create.do">등록하기</a>
     <span class='menu_divide' >│</span>
     <a href="javascript:location.reload();">새로고침</a>
   </aside>
+  
+    <div style="text-align: right; clear: both;">  
+    <form name='frm' id='frm' method='get' action='./list_by_search.do'>
+      
+      <c:choose>
+        <c:when test="${param.word != '' }"> <%-- 검색하는 경우는 검색어를 출력 --%>
+          <input type='text' name='word' id='word' value='${param.word }'>
+        </c:when>
+        <c:otherwise> <%-- 검색하지 않는 경우 --%>
+          <input type='text' name='word' id='word' value=''>
+        </c:otherwise>
+      </c:choose>
+      <button type='submit' class='btn btn-secondary btn-sm' style="padding: 2px 8px 3px 8px; margin: 0px 0px 2px 0px;">검색</button>
+      <c:if test="${param.word.length() > 0 }"> <%-- 검색 상태하면 '검색 취소' 버튼을 출력 --%>
+        <button type='button' class='btn btn-secondary btn-sm' style="padding: 2px 8px 3px 8px; margin: 0px 0px 2px 0px;"
+                    onclick="location.href='./list_by_search.do?page_now=1&word='">검색 취소</button>  
+      </c:if>    
+    </form>
+  </div>
+  
   <div class="menu_line"></div> 
   
   <table class="table table-hover">
@@ -50,6 +76,9 @@
           <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
             <img src="${noticesVO.imageurl }" style="width: 120px; height: 90px;">
           </c:when>
+          <c:when test="${noticesVO.imageurl=='123'}"> 
+            <img src="https://github.com/cri3958/team3_v2sbm3c/assets/48902673/f9700263-3561-48d5-872d-b272a1df533f" style="width: 120px; height: 90px;">
+          </c:when>
           <c:otherwise>
             <img src="/notices/storage/${noticesVO.imageurl }" style="width: 120px; height: 90px;">
           </c:otherwise>
@@ -67,7 +96,9 @@
     </tbody>
       
   </table>
- 
+ <!-- 페이지 목록 출력 부분 시작 -->
+  <DIV class='bottom_menu'>${paging }</DIV> <%-- 페이지 리스트 --%>
+  <!-- 페이지 목록 출력 부분 종료 -->
 <jsp:include page="../menu/bottom.jsp" flush='false' /> 
 </body>
 </html>

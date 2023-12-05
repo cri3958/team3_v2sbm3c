@@ -1,5 +1,7 @@
 package dev.mvc.notices;
 
+import org.springframework.web.multipart.MultipartFile;
+
 //@Getter @Setter @ToString
 public class NoticesVO {
 
@@ -17,10 +19,12 @@ public class NoticesVO {
     private String colorcd;
     private String age;
     private String weight;
-    private String orgNm;
-    private String careAddr;
+    private String orgnm;
+    private String careaddr;
     private String officetel;
-    private String careNm;
+    private String carenm;
+    
+    private MultipartFile imagemf;
     
     // 페이징 관련
     // -----------------------------------------------------------------------------------
@@ -30,6 +34,10 @@ public class NoticesVO {
     private int end_num;    
     /** 현재 페이지 */
     private int now_page = 1;
+    
+    private String word="";
+    
+    
     public int getNoticesno() {
       return noticesno;
     }
@@ -114,17 +122,17 @@ public class NoticesVO {
     public void setWeight(String weight) {
       this.weight = weight;
     }
-    public String getOrgNm() {
-      return orgNm;
+    public String getOrgnm() {
+      return orgnm;
     }
-    public void setOrgNm(String orgNm) {
-      this.orgNm = orgNm;
+    public void setOrgnm(String orgnm) {
+      this.orgnm = orgnm;
     }
-    public String getCareAddr() {
-      return careAddr;
+    public String getCareaddr() {
+      return careaddr;
     }
-    public void setCareAddr(String careAddr) {
-      this.careAddr = careAddr;
+    public void setCareaddr(String careaddr) {
+      this.careaddr = careaddr;
     }
     public String getOfficetel() {
       return officetel;
@@ -132,11 +140,11 @@ public class NoticesVO {
     public void setOfficetel(String officetel) {
       this.officetel = officetel;
     }
-    public String getCareNm() {
-      return careNm;
+    public String getCarenm() {
+      return carenm;
     }
-    public void setCareNm(String careNm) {
-      this.careNm = careNm;
+    public void setCarenm(String carenm) {
+      this.carenm = carenm;
     }
     public int getStart_num() {
       return start_num;
@@ -157,14 +165,32 @@ public class NoticesVO {
       this.now_page = now_page;
     }
     
+    
+    public MultipartFile getImagemf() {
+      return imagemf;
+    }
+    public void setImagemf(MultipartFile imagemf) {
+      this.imagemf = imagemf;
+    }
+    
+    
+    
+    public String getWord() {
+      return word;
+    }
+    public void setWord(String word) {
+      this.word = word;
+    }
     @Override
     public String toString() {
       return "NoticesVO [noticesno=" + noticesno + ", noticenumber=" + noticenumber + ", imageurl=" + imageurl
           + ", receiptdate=" + receiptdate + ", state=" + state + ", publicnoticestart=" + publicnoticestart
           + ", publicnoticeend=" + publicnoticeend + ", species=" + species + ", gender=" + gender + ", discoveryplace="
           + discoveryplace + ", characteristic=" + characteristic + ", colorcd=" + colorcd + ", age=" + age
-          + ", weight=" + weight + ", orgNm=" + orgNm + ", careAddr=" + careAddr + ", officetel=" + officetel
-          + ", careNm=" + careNm + ", start_num=" + start_num + ", end_num=" + end_num + ", now_page=" + now_page + "]";
+          + ", weight=" + weight + ", orgnm=" + orgnm + ", careaddr=" + careaddr + ", officetel=" + officetel
+          + ", carenm=" + carenm + ", imagemf=" + imagemf + ", start_num=" + start_num + ", end_num=" + end_num
+          + ", now_page=" + now_page + ", word=" + word + "]";
     }
-        
+    
+    
 }
