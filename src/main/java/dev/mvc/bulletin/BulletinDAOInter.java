@@ -1,5 +1,8 @@
 package dev.mvc.bulletin;
 
+import java.util.ArrayList;
+
+import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberVO;
 
 public interface BulletinDAOInter {
@@ -18,11 +21,18 @@ public interface BulletinDAOInter {
     public BulletinVO read(int bulletinidx);
     
     /**
-     * 수정 처리
+     * 글 정보 수정
      * @param bulletinVO
-     * @return
+     * @return 처리된 레코드 갯수
      */
-    public int update(BulletinVO bulletinVO);
+    public int update_text(BulletinVO bulletinVO);
+
+    /**
+     * 파일 정보 수정
+     * @param bulletinVO
+     * @return 처리된 레코드 갯수
+     */
+    public int update_file(BulletinVO bulletinVO);
     
     /**
      * 게시글 삭제 처리
@@ -30,5 +40,11 @@ public interface BulletinDAOInter {
      * @return
      */
     public int delete(int bulletinidx);
+    
+    /**
+     * 모든 등록된 게시글목록
+     * @return
+     */
+    public ArrayList<BulletinVO> list_all();
 
 }

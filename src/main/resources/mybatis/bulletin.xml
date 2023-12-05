@@ -3,24 +3,40 @@
 
 <mapper namespace="dev.mvc.bulletin.BulletinDAOInter">
     <insert id="create" parameterType="dev.mvc.bulletin.BulletinVO">
-    INSERT INTO bulletin(bulletinidx, bulletinname, bulletintext, bulletinpicture)
-    VALUES (BULLETIN_BULLETINIDX_SEQ.nextval, #{bulletinname}, #{bulletintext}, #{bulletinpicture});
+    INSERT INTO bulletin(bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1)
+    VALUES (BULLETIN_BULLETINIDX_SEQ.nextval, #{bulletinname}, #{bulletintext}, #{file1}, #{file1saved}, #{thumb1}, #{size1});
     </insert>
 
   <select id="read" resultType="dev.mvc.bulletin.BulletinVO" parameterType="int">
-    SELECT bulletinidx, bulletinname, bulletintext, bulletinpicture
+    SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1
     FROM bulletin
     WHERE bulletinidx = #{bulletinidx};
   </select>  
   
-    <update id="update" parameterType="dev.mvc.bulletin.BulletinVO">
+  <!-- 모든 등록된 게시글 목록 -->
+  <select id="list_all" resultType="dev.mvc.contents.ContentsVO">
+    SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1
+    FROM bulletin
+    ORDER BY bulletinidx DESC
+  </select>
+  
+  <update id="update_text" parameterType="dev.mvc.bulletin.BulletinVO">
     UPDATE bulletin
-    SET bulletinname=#{bulletinname}, bulletintext=#{bulletintext}, bulletinpicture=#{bulletinpicture}
+    SET bulletinname=#{bulletinname}, bulletintext=#{bulletintext}
     WHERE bulletinidx=#{bulletinidx};
-    </update>
+  </update>
     
-    <delete id="delete" parameterType="int">
+  <!-- 파일 수정 -->
+  <update id="update_file" parameterType="dev.mvc.contents.ContentsVO">
+    UPDATE bulletin
+    SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+    WHERE bulletinidx = #{bulletinidx}
+  </update>  
+    
+    
+  <delete id="delete" parameterType="int">
     DELETE FROM bulletin
     WHERE bulletinidx=#{bulletinidx}
-    </delete>
+  </delete>
+
 </mapper>
