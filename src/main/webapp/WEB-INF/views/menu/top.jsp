@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.cate.CateVO" %>
+<%@ page import="dev.mvc.notices.NoticesVO" %>
 
 <DIV class='container_main'> 
     <!-- 헤더 start -->
@@ -15,11 +15,11 @@
             </button>    
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                  <c:forEach var="cateVO" items="${list}">
-                    <c:set var="cateno" value="${cateVO.cateno }" />
-                    <c:set var="name" value="${cateVO.name }" />
+                  <c:forEach var="noticesVO" items="${list}">
+                    <c:set var="noticesno" value="${noticesVO.noticesno }" />
+                    <c:set var="name" value="${noticesVO.name }" />
                     <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                      <a class="nav-link" href="/contents/list_by_cateno.do?cateno=${cateno }&now_page=1" >${name }</a>
+                      <a class="nav-link" href="/contents/list_by_noticesno.do?noticesno=${noticesno }&now_page=1" >${name }</a>
                     </li>
                   </c:forEach>
                   
@@ -67,7 +67,7 @@
                       <li class="nav-item dropdown"> <%-- 관리자 서브 메뉴 --%>
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">관리자</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href='/cate/list_all.do'>카테고리 전체 목록</a>
+                          <a class="dropdown-item" href='/notices/list_all.do'>카테고리 전체 목록</a>
                           <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
                           <a class="dropdown-item" href='/recommend/list.do'>추천 목록</a>
                           <a class="dropdown-item" href='/good/list.do'>좋아요 목록</a>
