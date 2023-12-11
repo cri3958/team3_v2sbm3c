@@ -2,8 +2,24 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<<<<<<< HEAD
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+          
+          <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+              <a class="nav-link top_menu_link" href="/notices/list_by_search.do?now_page=1">공고목록 전체보기</a>
+            </li>
+            <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+              <a class="nav-link top_menu_link" href="http://3.34.34.132:5000/chatbot?memberno=7">챗봇</a>
+            </li>
+          
+              <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+                <a class="nav-link top_menu_link" href="/contents/list_all.do?now_page=1">커뮤니티</a> 
+              </li>
+=======
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dev.mvc.notices.NoticesVO" %>
+>>>>>>> 56093282b4e5c93094631a4fed8b05afb7f10dfe
 
 <DIV class='container_main'> 
     <!-- 헤더 start -->
