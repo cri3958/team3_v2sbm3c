@@ -77,7 +77,7 @@
             <img src="${noticesVO.imageurl }" style="width: 120px; height: 90px;">
           </c:when>
           <c:when test="${noticesVO.imageurl=='123'}"> 
-            <img src="https://github.com/cri3958/team3_v2sbm3c/assets/48902673/f9700263-3561-48d5-872d-b272a1df533f" style="width: 120px; height: 90px;">
+            <img src="/images/none1.png" style="width: 120px; height: 90px;">
           </c:when>
           <c:otherwise>
             <img src="/notices/storage/${noticesVO.imageurl }" style="width: 120px; height: 90px;">

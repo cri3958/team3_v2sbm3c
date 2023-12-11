@@ -88,7 +88,7 @@ public class NoticesCont {
         }
         noticesVO.setImageurl(file1);
       }else {
-        noticesVO.setImageurl("");
+        noticesVO.setImageurl("123");
       }
       System.out.println("check5");
 
