@@ -48,7 +48,8 @@ public class BulletinCont {
     
     // 등록 폼
     @RequestMapping(value="/bulletin/create.do", method = RequestMethod.GET)
-    public ModelAndView create() {
+    public ModelAndView create(int cateno) {
+
       ModelAndView mav = new ModelAndView();
 
       mav.setViewName("/bulletin/create"); // /webapp/WEB-INF/views/bulletin/create.jsp
@@ -65,7 +66,7 @@ public class BulletinCont {
     public ModelAndView create(HttpServletRequest request, HttpSession session, BulletinVO bulletinVO) {
       ModelAndView mav = new ModelAndView();
       
-            
+
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
         // ------------------------------------------------------------------------------

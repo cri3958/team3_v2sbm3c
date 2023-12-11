@@ -5,10 +5,13 @@ DROP TABLE BULLETIN CASCADE CONSTRAINTS;
 /* Table Name: 게시글 */
 /**********************************/
 CREATE TABLE BULLETIN(
-        BULLETINIDX                   		INTEGER		 NOT NULL		 PRIMARY KEY,
+		BULLETINIDX                   		INTEGER(10)		 NOT NULL		 PRIMARY KEY,
 		BULLETINNAME                  		VARCHAR2(200)		 NOT NULL,
 		BULLETINTEXT                  		VARCHAR2(500)		 NULL ,
-		BULLETINPICTURE               		VARCHAR2(500)		 NULL
+		FILE1                         		VARCHAR2(100)		 NULL ,
+		FILE1SAVED                    		VARCHAR2(100)		 NULL ,
+		THUMB1                        		VARCHAR2(100)		 NULL ,
+		SIZE1                         		NUMBER(10)		 DEFAULT 0		 NULL 
 );
 
 DROP SEQUENCE BULLETIN_BULLETINIDX_SEQ;
@@ -24,9 +27,12 @@ COMMENT ON TABLE BULLETIN is '게시글';
 COMMENT ON COLUMN BULLETIN.BULLETINIDX is '게시글번호';
 COMMENT ON COLUMN BULLETIN.BULLETINNAME is '제목';
 COMMENT ON COLUMN BULLETIN.BULLETINTEXT is '내용';
-COMMENT ON COLUMN BULLETIN.BULLETINPICTURE is '사진주소';
+COMMENT ON COLUMN BULLETIN.FILE1 is '메인이미지';
+COMMENT ON COLUMN BULLETIN.FILE1SAVED is '실제메인이미지';
+COMMENT ON COLUMN BULLETIN.THUMB1 is '메인이미지프리뷰';
+COMMENT ON COLUMN BULLETIN.SIZE1 is '메인이미지크기';
 
-INSERT INTO bulletin(bulletinidx, bulletinname, bulletintext, bulletinpicture)
+INSERT INTO bulletin(bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1)
 VALUES (BULLETIN_BULLETINIDX_SEQ.nextval, 'test', 'test', 'test');
 
 SELECT bulletinidx, bulletinname, bulletintext, bulletinpicture
