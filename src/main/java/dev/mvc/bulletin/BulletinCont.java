@@ -1,6 +1,7 @@
 package dev.mvc.bulletin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.bulletin.Bulletin;
+import dev.mvc.bulletin.BulletinVO;
+import dev.mvc.bulletin.Bulletin;
+import dev.mvc.bulletin.BulletinVO;
 import dev.mvc.bulletin.BulletinVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
@@ -46,24 +50,13 @@ public class BulletinCont {
       return mav; // forward
     }
     
-    // 등록 폼
-    @RequestMapping(value="/bulletin/create.do", method = RequestMethod.GET)
-    public ModelAndView create() {
-
-      ModelAndView mav = new ModelAndView();
-
-      mav.setViewName("/bulletin/create"); // /webapp/WEB-INF/views/bulletin/create.jsp
-      
-      return mav;
-    }
-    
     /**
      * 등록 처리 http://localhost:9091/bulletin/create.do
      * 
      * @return
      */
     @RequestMapping(value = "/bulletin/create.do", method = RequestMethod.POST)
-    public ModelAndView create(HttpSession session, BulletinVO bulletinVO) {
+    public ModelAndView create(HttpServletRequest request, BulletinVO bulletinVO) {
       System.out.println("-> bulletinVO : "+bulletinVO.toString());
       ModelAndView mav = new ModelAndView();
         // ------------------------------------------------------------------------------
@@ -73,7 +66,7 @@ public class BulletinCont {
         String file1saved = "";   // 저장된 파일명, image
         String thumb1 = "";     // preview image
 
-        String upDir =  Bulletin.getUploadDir(); // 파일을 업로드할 폴더 준비
+        String upDir = Tool.getRealPath(request, "/bulletin/storage"); // 파일을 업로드할 폴더 준비
         System.out.println("-> upDir: " + upDir);
         
         // 전송 파일이 없어도 file1MF 객체가 생성됨.
@@ -116,8 +109,8 @@ public class BulletinCont {
           // ------------------------------------------------------------------------------
           // PK의 return
           // ------------------------------------------------------------------------------
-          // System.out.println("--> bulletinno: " + bulletinVO.getBulletinno());
-          // mav.addObject("bulletinno", bulletinVO.getBulletinno()); // redirect parameter 적용
+          // System.out.println("--> bulletinidx: " + bulletinVO.getBulletinidx());
+          // mav.addObject("bulletinidx", bulletinVO.getBulletinidx()); // redirect parameter 적용
           // ------------------------------------------------------------------------------
           
           if (cnt == 1) {
@@ -128,9 +121,9 @@ public class BulletinCont {
           }
           mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
           
-          // System.out.println("--> cateno: " + bulletinVO.getBulletinidx());
+          // System.out.println("--> bulletinidx: " + bulletinVO.getBulletinidx());
           // redirect시에 hidden tag로 보낸것들이 전달이 안됨으로 request에 다시 저장
-          //mav.addObject("cateno", bulletinVO.getBulletinidx()); // redirect parameter 적용
+          //mav.addObject("bulletinidx", bulletinVO.getBulletinidx()); // redirect parameter 적용
           
           mav.addObject("url", "/bulletin/msg"); // msg.jsp, redirect parameter 적용
           mav.setViewName("redirect:/bulletin/msg.do"); // Post -> Get - param...        
@@ -181,4 +174,48 @@ public class BulletinCont {
       
       return mav;
     }
+    
+    @RequestMapping(value="/bulletin/read.do", method = RequestMethod.GET)
+    public ModelAndView read(int bulletinidx) { 
+      ModelAndView mav = new ModelAndView();
+      mav.setViewName("/bulletin/read"); 
+      
+      BulletinVO bulletinVO = this.bulletinProc.read(bulletinidx);
+      
+      mav.addObject("bulletinVO",bulletinVO);    
+      
+      
+      return mav;
+    }
+    
+    //삭제폼
+    @RequestMapping(value = "/bulletin/delete.do", method = RequestMethod.GET)
+    public ModelAndView delete(HttpSession session,int bulletinidx) {
+      ModelAndView mav = new ModelAndView();
+      if (this.adminProc.isAdmin(session)) { // 관리자 로그인 확인
+        BulletinVO bulletinVO = this.bulletinProc.read(bulletinidx);
+        mav.addObject("bulletinVO", bulletinVO);
+          
+        mav.setViewName("/bulletin/delete");
+    } else { // 정상적인 로그인이 아닌 경우 로그인 유도
+      mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.setViewName("redirect:/bulletin/msg.do"); 
+    }
+      return mav; // forward
+    }
+    
+    @RequestMapping(value = "/bulletin/delete.do", method = RequestMethod.POST)
+    public ModelAndView delete(HttpSession session,BulletinVO bulletinVO) {
+      ModelAndView mav = new ModelAndView();
+      if (this.adminProc.isAdmin(session)) { // 관리자 로그인 확인
+        this.bulletinProc.delete(bulletinVO.getBulletinidx()); // DBMS 삭제
+    
+        mav.setViewName("redirect:/bulletin/list_all.do"); 
+      } else { // 정상적인 로그인이 아닌 경우 로그인 유도
+        mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+        mav.setViewName("redirect:/bulletin/msg.do"); 
+      }
+      
+      return mav;
+    }   
 }

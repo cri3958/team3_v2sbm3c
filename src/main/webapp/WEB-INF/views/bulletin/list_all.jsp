@@ -42,15 +42,15 @@
     </thead>
     <tbody>
         <c:forEach var="bulletinVO" items="${list }" varStatus="info">
-          <c:set var="bulletinno" value="${bulletinVO.bulletinno }" />
-          <c:set var="thumb1" value="${bulletinVO.thumb1 }" />
+          <c:set var="bulletinidx" value="${bulletinVO.bulletinidx }" />
+          <c:set var="file1" value="${bulletinVO.file1 }" />
     
-          <tr onclick="location.href='./read.do?bulletinno=${bulletinno}'" style="cursor: pointer;">
+          <tr onclick="location.href='./read.do?bulletinidx=${bulletinidx}'" style="cursor: pointer;">
             <td>
               <c:choose>
-                <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
+                <c:when test="${file1.endsWith('jpg') || file1.endsWith('png') || file1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>
                   <%-- registry.addResourceHandler("/bulletin/storage/**").addResourceLocations("file:///" +  Contents.getUploadDir()); --%>
-                  <img src="/bulletin/storage/${thumb1 }" style="width: 120px; height: 90px;">
+                  <img src="/bulletin/storage/${file1 }" style="width: 120px; height: 90px;">
                 </c:when>
                 <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/bulletin/images/none1.png -->
                   <img src="/bulletin/images/none1.png" style="width: 120px; height: 90px;">
@@ -58,18 +58,18 @@
               </c:choose>
             </td>
             <td class="td_bs_left">
-              <span style="font-weight: bold;">${bulletinVO.title }</span><br>
+              <span style="font-weight: bold;">${bulletinVO.bulletinname }</span><br>
               <c:choose>
-                <c:when test="${bulletinVO.content.length() > 160 }">
-                  ${bulletinVO.content.substring(0, 160) }...
+                <c:when test="${bulletinVO.bulletintext.length() > 160 }">
+                  ${bulletinVO.bulletintext.substring(0, 160) }...
                 </c:when>
                 <c:otherwise>
-                  ${bulletinVO.content }
+                  ${bulletinVO.bulletintext }
                 </c:otherwise>
               </c:choose>
             </td>
             <td class="td_bs">
-              <a href="#" title="삭제"><img src="/bulletin/images/delete.png" class="icon"></a>
+              <a href="./delete.do?bulletinidx=${bulletinidx}" title="삭제"><img src="/images/delete.png" class="icon"></a>
             </td>
           </tr>
         </c:forEach>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="bulletinidx" value="${bulletinVO.bulletinidx }" />
-<c:set var="title" value="${bulletinVO.title }" />
+<c:set var="bulletinname" value="${bulletinVO.bulletinname }" />
 <c:set var="file1" value="${bulletinVO.file1 }" />
 <c:set var="file1saved" value="${bulletinVO.file1saved }" />
 <c:set var="thumb1" value="${bulletinVO.thumb1.toLowerCase() }" />
@@ -24,7 +24,7 @@
 </head>
 <body>
 <c:import url="/menu/top.do" />
-  <DIV class='title_line'> ${title } > 삭제</DIV>
+  <DIV class='title_line'> ${bulletinname } > 삭제</DIV>
   
   <aside class="aside_right">
     <a href="./create.do">등록</a>
@@ -56,7 +56,7 @@
           </c:if>
           <br>
           <FORM name='frm' method='post' action='./delete.do'>
-              <input type='hidden' name='bulletinno' value='${bulletinno}'>
+              <input type='hidden' name='bulletinidx' value='${bulletinidx}'>
               <input type='hidden' name='now_page' value='${param.now_page}'>
               <br><br>
               <div style='text-align: center; margin: 10px auto;'>
