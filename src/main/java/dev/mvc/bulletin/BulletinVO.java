@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BulletinVO {
 //    CREATE TABLE BULLETIN(
-//            BULLETINIDX                         INTEGER(10)      NOT NULL        PRIMARY KEY,
+//            BULLETINIDX                        NUMBER(10)      NOT NULL        PRIMARY KEY,
 //            BULLETINNAME                        VARCHAR2(200)        NOT NULL,
 //            BULLETINTEXT                        VARCHAR2(500)        NULL ,
 //            FILE1                               VARCHAR2(100)        NULL ,

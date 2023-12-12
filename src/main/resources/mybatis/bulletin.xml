@@ -14,7 +14,7 @@
   </select>  
   
   <!-- 모든 등록된 게시글 목록 -->
-  <select id="list_all" resultType="dev.mvc.contents.ContentsVO">
+  <select id="list_all" resultType="dev.mvc.bulletin.BulletinVO">
     SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1
     FROM bulletin
     ORDER BY bulletinidx DESC
@@ -27,7 +27,7 @@
   </update>
     
   <!-- 파일 수정 -->
-  <update id="update_file" parameterType="dev.mvc.contents.ContentsVO">
+  <update id="update_file" parameterType="dev.mvc.bulletin.BulletinVO">
     UPDATE bulletin
     SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
     WHERE bulletinidx = #{bulletinidx}

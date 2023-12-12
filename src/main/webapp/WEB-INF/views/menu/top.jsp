@@ -45,7 +45,7 @@
             </li>
           
               <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                <a class="nav-link top_menu_link" href="/contents/list_all.do?now_page=1">커뮤니티</a> 
+                <a class="nav-link top_menu_link" href="/bulletin/list_all.do?now_page=1">커뮤니티</a> 
               </li>
 
 

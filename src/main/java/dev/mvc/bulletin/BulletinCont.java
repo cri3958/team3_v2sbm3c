@@ -22,7 +22,7 @@ import dev.mvc.tool.Upload;
 @Controller
 public class BulletinCont {
     @Autowired
-    @Qualifier("dev.mvc.bulletin.BulletinProc") // @Component("dev.mvc.admin.AdminProc")
+    @Qualifier("dev.mvc.bulletin.BulletinProc")
     private BulletinProcInter bulletinProc;
     
     public BulletinCont(){
@@ -30,7 +30,7 @@ public class BulletinCont {
    }
     
     @Autowired
-    @Qualifier("dev.mvc.admin.AdminProc") // @Component("dev.mvc.admin.AdminProc")
+    @Qualifier("dev.mvc.admin.AdminProc")
     private AdminProcInter adminProc;
     /**
      * POST 요청시 JSP 페이지에서 JSTL 호출 기능 지원, 새로고침 방지, EL에서 param으로 접근
@@ -48,7 +48,7 @@ public class BulletinCont {
     
     // 등록 폼
     @RequestMapping(value="/bulletin/create.do", method = RequestMethod.GET)
-    public ModelAndView create(int cateno) {
+    public ModelAndView create() {
 
       ModelAndView mav = new ModelAndView();
 
@@ -63,10 +63,8 @@ public class BulletinCont {
      * @return
      */
     @RequestMapping(value = "/bulletin/create.do", method = RequestMethod.POST)
-    public ModelAndView create(HttpServletRequest request, HttpSession session, BulletinVO bulletinVO) {
+    public ModelAndView create(HttpSession session, BulletinVO bulletinVO) {
       ModelAndView mav = new ModelAndView();
-      
-
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
         // ------------------------------------------------------------------------------
@@ -129,7 +127,7 @@ public class BulletinCont {
           
           // System.out.println("--> cateno: " + bulletinVO.getBulletinidx());
           // redirect시에 hidden tag로 보낸것들이 전달이 안됨으로 request에 다시 저장
-          mav.addObject("cateno", bulletinVO.getBulletinidx()); // redirect parameter 적용
+          //mav.addObject("cateno", bulletinVO.getBulletinidx()); // redirect parameter 적용
           
           mav.addObject("url", "/bulletin/msg"); // msg.jsp, redirect parameter 적용
           mav.setViewName("redirect:/bulletin/msg.do"); // Post -> Get - param...        

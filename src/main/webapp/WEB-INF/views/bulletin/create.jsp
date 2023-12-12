@@ -21,8 +21,6 @@
   <div class='title_line'>글 등록</div>
   
   <aside class="aside_right">
-    <a href="./create.do">등록</a>
-    <span class='menu_divide' >│</span>
     <a href="javascript:location.reload();">새로고침</a>
   </aside>
     
@@ -31,12 +29,12 @@
   <form name='frm' method='post' action='./create.do' enctype="multipart/form-data">    
     <div>
        <label>제목</label>
-       <input type='text' name='title' value='주말 오지 탐험' required="required" 
+       <input type='text' name='bulletinname' value='.' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
        <label>내용</label>
-       <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'>오지 탐험은 언제나 즐거운 시간이었어요! </textarea>
+       <textarea name='bulletintext' required="required" class="form-control" rows="12" style='width: 100%;'>.</textarea>
     </div>
     <div>
        <label>이미지</label>
