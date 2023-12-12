@@ -64,6 +64,7 @@ public class BulletinCont {
      */
     @RequestMapping(value = "/bulletin/create.do", method = RequestMethod.POST)
     public ModelAndView create(HttpSession session, BulletinVO bulletinVO) {
+      System.out.println("-> bulletinVO : "+bulletinVO.toString());
       ModelAndView mav = new ModelAndView();
         // ------------------------------------------------------------------------------
         // 파일 전송 코드 시작
@@ -108,7 +109,9 @@ public class BulletinCont {
           // Call By Reference: 메모리 공유, Hashcode 전달
           //int adminno = (int)session.getAttribute("adminno"); // adminno FK
           //bulletinVO.setAdminno(adminno);
+          System.out.println("->check1");
           int cnt = this.bulletinProc.create(bulletinVO); 
+          System.out.println("->check2");
           
           // ------------------------------------------------------------------------------
           // PK의 return

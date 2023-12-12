@@ -15,7 +15,9 @@ public class BulletinProc implements BulletinProcInter{
 
     @Override
     public int create(BulletinVO bulletinVO) {
+      System.out.println("-> Proc bulletin : "+bulletinVO);
         int cnt = this.bulletinDAO.create(bulletinVO);
+        System.out.println("-> Proc check" );
         return cnt;
     }
 

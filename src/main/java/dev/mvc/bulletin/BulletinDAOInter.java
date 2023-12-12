@@ -8,7 +8,7 @@ import dev.mvc.member.MemberVO;
 public interface BulletinDAOInter {
     /**
      * 글 작성
-     * @param memberVO
+     * @param bulletinVO
      * @return 추가한 레코드 갯수
      */
     public int create(BulletinVO bulletinVO);

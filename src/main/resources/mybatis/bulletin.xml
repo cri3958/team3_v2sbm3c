@@ -4,13 +4,13 @@
 <mapper namespace="dev.mvc.bulletin.BulletinDAOInter">
     <insert id="create" parameterType="dev.mvc.bulletin.BulletinVO">
     INSERT INTO bulletin(bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1)
-    VALUES (BULLETIN_BULLETINIDX_SEQ.nextval, #{bulletinname}, #{bulletintext}, #{file1}, #{file1saved}, #{thumb1}, #{size1});
+    VALUES (BULLETIN_BULLETINIDX_SEQ.nextval, #{bulletinname}, #{bulletintext}, #{file1}, #{file1saved}, #{thumb1}, #{size1})
     </insert>
 
   <select id="read" resultType="dev.mvc.bulletin.BulletinVO" parameterType="int">
     SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1
     FROM bulletin
-    WHERE bulletinidx = #{bulletinidx};
+    WHERE bulletinidx = #{bulletinidx}
   </select>  
   
   <!-- 모든 등록된 게시글 목록 -->
@@ -23,7 +23,7 @@
   <update id="update_text" parameterType="dev.mvc.bulletin.BulletinVO">
     UPDATE bulletin
     SET bulletinname=#{bulletinname}, bulletintext=#{bulletintext}
-    WHERE bulletinidx=#{bulletinidx};
+    WHERE bulletinidx=#{bulletinidx}
   </update>
     
   <!-- 파일 수정 -->
