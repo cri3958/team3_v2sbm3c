@@ -45,8 +45,14 @@
             const image = await loadImage(imageUrl);
             const prediction = await predictImage(model, image);
             console.log(prediction);
+            const word = prediction.split(",")[0].split("Class")[1].split("]")[1].split(" ").join("");
+            let onclick = "location.href=";
+            onclick += "'notices/list_by_search.do?page_now=1&word=";
+            onclick += word;
+            onclick +="'";
             // Display the prediction result
-            predictionResultElement.innerHTML = "Prediction: "+prediction;
+            predictionResultElement.innerHTML = "Prediction: "+prediction+"<br><button type='button' class='btn btn-secondary btn-sm' style='padding: 2px 8px 3px 8px; margin: 0px 0px 2px 0px;' onclick="+onclick+">공고 바로가기</button>  ";
+
         }
 
         // Function to load an image

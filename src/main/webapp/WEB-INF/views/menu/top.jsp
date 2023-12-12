@@ -41,7 +41,15 @@
               <a class="nav-link top_menu_link" href="/notices/list_by_search.do?now_page=1">공고목록 전체보기</a>
             </li>
             <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-              <a class="nav-link top_menu_link" href="http://3.34.34.132:5000/chatbot?memberno=7">챗봇</a>
+
+              <c:choose>
+                  <c:when test="${sessionScope.id == null }">
+                    
+                  </c:when>
+                  <c:otherwise>
+                                  <a class="nav-link top_menu_link" href="http://3.34.34.132:5000/chatbot?memberno=${sessionScope.memberno }">챗봇</a>
+                  </c:otherwise>
+                </c:choose>
             </li>
           
               <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>

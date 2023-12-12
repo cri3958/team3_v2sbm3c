@@ -89,6 +89,7 @@ public class MemberProc implements MemberProcInter {
     return sw;
   }
   
+  
   @Override
   public int update(MemberVO memberVO) {
     int cnt = this.memberDAO.update(memberVO);
@@ -117,6 +118,16 @@ public class MemberProc implements MemberProcInter {
   public int login(HashMap<String, Object> map) {
     int cnt = this.memberDAO.login(map);
     return cnt;
+  }
+
+  @Override
+  public int getMemberno(HttpSession session) {    
+    // System.out.println("-> grade: " + session.getAttribute("grade"));
+    if (session != null) {
+      return (int)session.getAttribute("memberno");
+    }
+    
+    return 0;
   }
   
 }
