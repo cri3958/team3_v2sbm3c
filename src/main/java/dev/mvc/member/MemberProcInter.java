@@ -89,6 +89,12 @@ public interface MemberProcInter {
    */
   public int login(HashMap<String, Object> map);
   
+  /**
+   * 로그인된 회원의 memberno 리턴
+   * @param session
+   * @return memberno
+   */
+  public int getMemberno(HttpSession session);
 }
 
 
