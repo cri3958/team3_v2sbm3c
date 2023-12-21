@@ -22,4 +22,6 @@ public interface NoticesDAOInter {
   public int search_count(HashMap<String, Object> hashMap);
 
   public ArrayList<NoticesVO> list_by_search_paging(NoticesVO noticesVO);
+  
+  public int favorite(HashMap<String,Object>hashMap);
 }

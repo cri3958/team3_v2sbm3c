@@ -62,10 +62,12 @@ public class MemberProc implements MemberProcInter {
       }
       
       if (id != null && grade <= 20){ // 관리자 + 회원
+        System.out.println("->id : "+id);
+        System.out.println("->grade : "+grade);
         sw = true;  // 로그인 한 경우
       }
     }
-    
+    System.out.println("->sw : "+sw);
     return sw;
   }
 

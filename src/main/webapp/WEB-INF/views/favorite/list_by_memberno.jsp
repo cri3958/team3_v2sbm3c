@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, width=device-width" /> 
-<title>http://localhost:9093/notices/list_all.do</title>
+<title>http://localhost:9093/favorite/list_by_memberno.do</title>
 <link rel="shortcut icon" href="/images/star.png" /> <%-- /static 기준 --%>
 <link href="/css/style.css" rel="Stylesheet" type="text/css"> <!-- /static 기준 -->
 
@@ -26,14 +26,8 @@
     ${search_count } 건
   </div>
   
-  <aside class="aside_right">
-    <a href="./create.do">등록하기</a>
-    <span class='menu_divide' >│</span>
-    <a href="javascript:location.reload();">새로고침</a>
-  </aside>
-  
     <div style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_by_search.do'>
+    <form name='frm' id='frm' method='get' action='./list_by_memberno.do?'>
       
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우는 검색어를 출력 --%>
@@ -46,7 +40,7 @@
       <button type='submit' class='btn btn-secondary btn-sm' style="padding: 2px 8px 3px 8px; margin: 0px 0px 2px 0px;">검색</button>
       <c:if test="${param.word.length() > 0 }"> <%-- 검색 상태하면 '검색 취소' 버튼을 출력 --%>
         <button type='button' class='btn btn-secondary btn-sm' style="padding: 2px 8px 3px 8px; margin: 0px 0px 2px 0px;"
-                    onclick="location.href='./list_by_search.do?page_now=1&word='">검색 취소</button>  
+                    onclick="location.href='./list_by_memberno.do?now_page=1&memberno=${sessionScope.memberno}&word='">검색 취소</button>  
       </c:if>    
     </form>
   </div>
@@ -70,7 +64,7 @@
         <c:forEach var="noticesVO" items="${list }" varStatus="info">
           <c:set var="noticesno" value="${noticesVO.noticesno }" />
     
-          <tr onclick="location.href='./read.do?noticesno=${noticesno}'" style="cursor: pointer;">
+          <tr onclick="location.href='/notices/read.do?noticesno=${noticesno}'" style="cursor: pointer;">
             <td>
          <c:choose> 
           <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
@@ -84,19 +78,21 @@
           </c:otherwise>
         </c:choose>
             </td>
+            
             <td class="td_bs_left">
               <span style="font-weight: bold;">${noticesVO.noticenumber }</span><br>
             </td>
+            
             <td class="td_bs">
               <a href="/notices/update_text.do?noticesno=${noticesno }" title="수정"><img src="/images/update.png" class="icon"></a>
               <a href="/notices/delete.do?noticesno=${noticesno }" title="삭제"><img src="/images/delete.png" class="icon"></a>
               <c:choose>
-              <c:when test="${noticesVO.memberno != 0 }">
-              <a href="/favorite/unlike.do?noticesno=${noticesno }&memberno=${sessionScope.memberno}" title="즐겨찾기 해제"><img src="/images/star.png" class="icon"></a>
-              </c:when>
-                <c:when test="${noticesVO.memberno !=null and sessionScope.memberno != null}">
-                <a href="/favorite/like.do?noticesno=${noticesno }&memberno=${sessionScope.memberno}" title="즐겨찾기 추가"><img src="/images/star_empty.png" class="icon"></a>
+                <c:when test="${noticesVO.memberno !=null }">
+                <a href="/favorite/unlike.do?noticesno=${noticesno }&memberno=${sessionScope.memberno}" title="즐겨찾기 해제"><img src="/images/star.png" class="icon"></a>
                 </c:when>
+              <c:otherwise>
+              <a href="/favorite/like.do?noticesno=${noticesno }&memberno=7" title="즐겨찾기 추가"><img src="/images/star_empty.png" class="icon"></a>
+              </c:otherwise>
              </c:choose>
             </td>
           </tr>

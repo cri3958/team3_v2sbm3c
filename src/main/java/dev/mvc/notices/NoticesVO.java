@@ -36,6 +36,7 @@ public class NoticesVO {
     private int now_page = 1;
     
     private String word="";
+    private int memberno;
     
     
     public int getNoticesno() {
@@ -181,6 +182,14 @@ public class NoticesVO {
     public void setWord(String word) {
       this.word = word;
     }
+    
+    
+    public int getMemberno() {
+      return memberno;
+    }
+    public void setMemberno(int memberno) {
+      this.memberno = memberno;
+    }
     @Override
     public String toString() {
       return "NoticesVO [noticesno=" + noticesno + ", noticenumber=" + noticenumber + ", imageurl=" + imageurl
@@ -189,8 +198,9 @@ public class NoticesVO {
           + discoveryplace + ", characteristic=" + characteristic + ", colorcd=" + colorcd + ", age=" + age
           + ", weight=" + weight + ", orgnm=" + orgnm + ", careaddr=" + careaddr + ", officetel=" + officetel
           + ", carenm=" + carenm + ", imagemf=" + imagemf + ", start_num=" + start_num + ", end_num=" + end_num
-          + ", now_page=" + now_page + ", word=" + word + "]";
+          + ", now_page=" + now_page + ", word=" + word + ", memberno=" + memberno + "]";
     }
     
+
     
 }

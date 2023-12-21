@@ -1,4 +1,4 @@
-package dev.mvc.notices;
+package dev.mvc.favorite;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,85 +6,62 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import dev.mvc.contents.Contents;
-import dev.mvc.contents.ContentsVO;
+import dev.mvc.notices.Notices;
+import dev.mvc.notices.NoticesVO;
 
-@Component("dev.mvc.notices.NoticesProc")
-public class NoticesProc implements NoticesProcInter {
+@Component("dev.mvc.favorite.FavoriteProc")
+public class FavoriteProc implements FavoriteProcInter {
   @Autowired  
-  private NoticesDAOInter noticesDAO;
-  @Override
-  public int create(NoticesVO noticesVO) {
-    int cnt = this.noticesDAO.create(noticesVO);
-    return cnt;
-  }
-
-  @Override
-  public ArrayList<NoticesVO> list_all() {
-    ArrayList<NoticesVO> list = this.noticesDAO.list_all();
-    return list;
-  }
-
-  @Override
-  public NoticesVO read(int noticesno) {
-    NoticesVO noticesVo = this.noticesDAO.read(noticesno);
-    return noticesVo;
-  }
-
-  @Override
-  public int update_text(NoticesVO noticesVO) {
-    int cnt = this.noticesDAO.update_text(noticesVO);
-    return cnt;
-  }
-
-  @Override
-  public int delete(int noticesno) {
-    int cnt = this.noticesDAO.delete(noticesno);
-    return cnt;
-  }
+  private FavoriteDAOInter favoriteDAO;
   
   @Override
-  public ArrayList<NoticesVO> list_by_search(HashMap<String, Object> hashMap) {
-    ArrayList<NoticesVO> list = this.noticesDAO.list_by_search(hashMap);
-    return list;
-  }
-
-  @Override
-  public int search_count(HashMap<String, Object> hashMap) {
-    int cnt = this.noticesDAO.search_count(hashMap);
-    return cnt;
-  }
-  
-  @Override
-  public ArrayList<NoticesVO> list_by_search_paging(NoticesVO noticesVO) {
-
-    int begin_of_page = (noticesVO.getNow_page() - 1) * Notices.RECORD_PER_PAGE;
+  public ArrayList<NoticesVO> list_by_memberno(FavoriteVO favoriteVO) {
+    
+    int begin_of_page = (favoriteVO.getNow_page() - 1) * Favorite.RECORD_PER_PAGE;
 
     int start_num = begin_of_page + 1;
 
-    int end_num = begin_of_page + Notices.RECORD_PER_PAGE;   
+    int end_num = begin_of_page + Favorite.RECORD_PER_PAGE;   
     
-    noticesVO.setStart_num(start_num);
-    noticesVO.setEnd_num(end_num);
+    favoriteVO.setStart_num(start_num);
+    favoriteVO.setEnd_num(end_num);
     
-    ArrayList<NoticesVO> list = this.noticesDAO.list_by_search_paging(noticesVO);
+    ArrayList<NoticesVO> list = this.favoriteDAO.list_by_memberno(favoriteVO);
     return list;
+  }
+  
+  @Override
+  public int like(FavoriteVO favoriteVO) {
+    int cnt = this.favoriteDAO.like(favoriteVO);
+    return cnt;
   }
 
   @Override
-  public String pagingBox(int now_page, String list_file, int search_count){
+  public int unlike(FavoriteVO favoriteVO) {
+    int cnt = this.favoriteDAO.unlike(favoriteVO);
+    return cnt;
+  }
+  
+  @Override
+  public int search_count(HashMap<String, Object> hashMap) {
+    int cnt = this.favoriteDAO.search_count(hashMap);
+    return cnt;
+  }
+  
+  @Override
+  public String pagingBox(int now_page, String list_file, int search_count,int memberno){
     // 전체 페이지 수: (double)1/10 -> 0.1 -> 1 페이지, (double)12/10 -> 1.2 페이지 -> 2 페이지
-    int total_page = (int)(Math.ceil((double)search_count / Notices.RECORD_PER_PAGE));
+    int total_page = (int)(Math.ceil((double)search_count / Favorite.RECORD_PER_PAGE));
     // 전체 그룹  수: (double)1/10 -> 0.1 -> 1 그룹, (double)12/10 -> 1.2 그룹-> 2 그룹
-    int total_grp = (int)(Math.ceil((double)total_page / Notices.PAGE_PER_BLOCK)); 
+    int total_grp = (int)(Math.ceil((double)total_page / Favorite.PAGE_PER_BLOCK)); 
     // 현재 그룹 번호: (double)13/10 -> 1.3 -> 2 그룹
-    int now_grp = (int)(Math.ceil((double)now_page / Notices.PAGE_PER_BLOCK));  
+    int now_grp = (int)(Math.ceil((double)now_page / Favorite.PAGE_PER_BLOCK));  
     
     // 1 group: 1, 2, 3 ... 9, 10
     // 2 group: 11, 12 ... 19, 20
     // 3 group: 21, 22 ... 29, 30
-    int start_page = ((now_grp - 1) * Notices.PAGE_PER_BLOCK) + 1; // 특정 그룹의 시작  페이지  
-    int end_page = (now_grp * Notices.PAGE_PER_BLOCK);               // 특정 그룹의 마지막 페이지   
+    int start_page = ((now_grp - 1) * Favorite.PAGE_PER_BLOCK) + 1; // 특정 그룹의 시작  페이지  
+    int end_page = (now_grp * Favorite.PAGE_PER_BLOCK);               // 특정 그룹의 마지막 페이지   
      
     StringBuffer str = new StringBuffer(); // String class 보다 문자열 추가등의 편집시 속도가 빠름 
     
@@ -126,7 +103,7 @@ public class NoticesProc implements NoticesProcInter {
     // 현재 3그룹일 경우: (3 - 1) * 10 = 2그룹의 마지막 페이지 20
     int _now_page = (now_grp - 1) * Notices.PAGE_PER_BLOCK;  
     if (now_grp >= 2){ // 현재 그룹번호가 2이상이면 페이지수가 11페이지 이상임으로 이전 그룹으로 갈수 있는 링크 생성 
-      str.append("<span class='span_box_1'><A href='"+list_file+"?now_page="+_now_page+"'>이전</A></span>"); 
+      str.append("<span class='span_box_1'><A href='"+list_file+"?now_page="+_now_page+"&memberno="+memberno+"'>이전</A></span>"); 
     } 
  
     // 중앙의 페이지 목록
@@ -139,7 +116,7 @@ public class NoticesProc implements NoticesProcInter {
         str.append("<span class='span_box_2'>"+i+"</span>"); // 현재 페이지, 강조 
       }else{
         // 현재 페이지가 아닌 페이지는 이동이 가능하도록 링크를 설정
-        str.append("<span class='span_box_1'><A href='"+list_file+"?now_page="+i+"'>"+i+"</A></span>");   
+        str.append("<span class='span_box_1'><A href='"+list_file+"?now_page="+i+"&memberno="+memberno+"'>"+i+"</A></span>");   
       } 
     } 
  
@@ -148,19 +125,12 @@ public class NoticesProc implements NoticesProcInter {
     // 현재 페이지 5일경우 -> 현재 1그룹: (1 * 10) + 1 = 2그룹의 시작페이지 11
     // 현재 페이지 15일경우 -> 현재 2그룹: (2 * 10) + 1 = 3그룹의 시작페이지 21
     // 현재 페이지 25일경우 -> 현재 3그룹: (3 * 10) + 1 = 4그룹의 시작페이지 31
-    _now_page = (now_grp * Notices.PAGE_PER_BLOCK)+1; //  최대 페이지수 + 1 
+    _now_page = (now_grp * Favorite.PAGE_PER_BLOCK)+1; //  최대 페이지수 + 1 
     if (now_grp < total_grp){ 
-      str.append("<span class='span_box_1'><A href='"+list_file+"?now_page="+_now_page+"'>다음</A></span>"); 
+      str.append("<span class='span_box_1'><A href='"+list_file+"?now_page="+_now_page+"&memberno="+memberno+"'>다음</A></span>"); 
     } 
     str.append("</DIV>"); 
      
     return str.toString(); 
-  }
-
-  @Override
-  public int favorite(HashMap<String, Object> hashMap) {
-    System.out.println(hashMap);
-    int cnt = this.noticesDAO.favorite(hashMap);
-    return cnt;
   }
 }

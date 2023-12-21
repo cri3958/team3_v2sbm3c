@@ -33,7 +33,7 @@
           <li class='li_none'>
             <button type='button' 
                          onclick="location.href='./login.do?id=${param.id}'"
-                         class="btn btn-primary btn-sm">로그인</button>
+                         class="btn btn-secondary btn-sm">로그인</button>
           </li> 
         </c:when>
         
