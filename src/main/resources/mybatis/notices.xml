@@ -85,4 +85,10 @@
           2 page: WHERE r >= 11 AND r <= 20;
           3 page: WHERE r >= 21 AND r <= 30; -->
   </select>
+  
+  <select id="favorite" resultType="int" parameterType="HashMap">
+    SELECT COUNT(*)
+    FROM FAVORITE
+    WHERE memberno=#{memberno} and noticesno=#{noticesno}
+  </select>
 </mapper>

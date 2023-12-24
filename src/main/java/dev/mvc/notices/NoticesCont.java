@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.contents.ContentsVO;
+import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -24,6 +25,10 @@ public class NoticesCont {
   @Autowired
   @Qualifier("dev.mvc.admin.AdminProc") // @Component("dev.mvc.admin.AdminProc")
   private AdminProcInter adminProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.member.MemberProc") // @Component("dev.mvc.admin.AdminProc")
+  private MemberProcInter memberProc;
   
   @Autowired
   @Qualifier("dev.mvc.notices.NoticesProc") 
@@ -228,12 +233,25 @@ public class NoticesCont {
   
 
   @RequestMapping(value = "/notices/list_by_search.do", method = RequestMethod.GET)
-  public ModelAndView list_by_search(NoticesVO noticesVO) {
+  public ModelAndView list_by_search(HttpSession session,NoticesVO noticesVO) {
     ModelAndView mav = new ModelAndView();
   
     // 검색 목록
+    System.out.println("->noticesVO : "+noticesVO.toString());
     ArrayList<NoticesVO> list = this.noticesProc.list_by_search_paging(noticesVO);
-    
+    for (int i=0;i<list.size();i++) {
+      int noticesno = list.get(i).getNoticesno();
+      int memberno = memberProc.getMemberno(session);
+      
+      HashMap<String, Object> hashMap1 = new HashMap<String, Object>();
+      hashMap1.put("memberno", memberno);
+      hashMap1.put("noticesno", noticesno);
+      
+      int cnt = this.noticesProc.favorite(hashMap1);
+      if(cnt>=1) {
+        list.get(i).setMemberno(memberno);
+      }
+    }
     mav.addObject("list", list);
   
     HashMap<String, Object> hashMap = new HashMap<String, Object>();

@@ -47,7 +47,18 @@
                     
                   </c:when>
                   <c:otherwise>
-                                  <a class="nav-link top_menu_link" href="http://3.34.34.132:5000/chatbot?memberno=${sessionScope.memberno }">챗봇</a>
+                          <a class="nav-link top_menu_link" href="/favorite/list_by_memberno.do?now_page=1">즐겨찾기 공고 모아보기</a>
+                  </c:otherwise>
+                </c:choose>
+            </li>
+            <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
+
+              <c:choose>
+                  <c:when test="${sessionScope.id == null }">
+                    
+                  </c:when>
+                  <c:otherwise>
+                          <a class="nav-link top_menu_link" href="http://3.34.34.132:5000/chatbot?memberno=${sessionScope.memberno }">챗봇</a>
                   </c:otherwise>
                 </c:choose>
             </li>
