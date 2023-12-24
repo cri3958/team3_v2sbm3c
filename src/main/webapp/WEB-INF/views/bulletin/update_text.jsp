@@ -1,12 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:set var="cateno" value="${cateVO.cateno }" />
-
-<c:set var="bulletinno" value="${bulletinVO.bulletinno }" />
-<c:set var="title" value="${bulletinVO.title }" />
-<c:set var="content" value="${bulletinVO.content }" />
-<c:set var="word" value="${bulletinVO.word }" />
+<c:set var="bulletinidx" value="${bulletinVO.bulletinidx }" />
+<c:set var="bulletinname" value="${bulletinVO.bulletinname }" />
+<c:set var="bulletintext" value="${bulletinVO.bulletintext }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -25,10 +22,10 @@
 <body>
 <c:import url="/menu/top.do" />
  
-  <DIV class='title_line'> ${title } > 수정</DIV>
+  <DIV class='title_line'> ${bulletinname } > 수정</DIV>
   
   <aside class="aside_right">
-    <a href="./create.do?cateno=${cateno }">등록</a>
+    <a href="./create.do">등록</a>
     <span class='menu_divide' >│</span>
     <a href="javascript:location.reload();">새로고침</a>
   </aside>
@@ -36,24 +33,17 @@
   <div class='menu_line'></div>
   
   <form name='frm' method='post' action='./update_text.do'>
-    <input type="hidden" name="cateno" value="${cateno }">
-    <input type="hidden" name="bulletinno" value="${bulletinno }">
-    <input type="hidden" name="now_page" value="${param.now_page }">
+    <input type="hidden" name="bulletinidx" value="${bulletinidx }">
     
     <div>
        <label>제목</label>
-       <input type='text' name='title' value='${title }' required="required" 
+       <input type='text' name='bulletinname' value='${bulletinname }' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
        <label>내용</label>
-       <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'>${content }</textarea>
+       <textarea name='bulletintext' required="required" class="form-control" rows="12" style='width: 100%;'>${bulletintext }</textarea>
     </div>
-    <div>
-       <label>검색어</label>
-       <input type='text' name='word' value="${word }" required="required" 
-                 class="form-control" style='width: 100%;'>
-    </div>   
     
     <div>
       <label>패스워드</label>

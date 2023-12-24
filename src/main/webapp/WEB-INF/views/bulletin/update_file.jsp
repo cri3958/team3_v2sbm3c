@@ -2,9 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="bulletinno" value="${bulletinVO.bulletinno }" />
-<c:set var="cateno" value="${bulletinVO.cateno }" />
-<c:set var="title" value="${bulletinVO.title }" />
+<c:set var="bulletinidx" value="${bulletinVO.bulletinidx }" />
+<c:set var="bulletinname" value="${bulletinVO.bulletinname }" />
 <c:set var="file1" value="${bulletinVO.file1 }" />
 <c:set var="file1saved" value="${bulletinVO.file1saved }" />
 <c:set var="thumb1" value="${bulletinVO.thumb1.toLowerCase() }" />
@@ -25,10 +24,10 @@
 </head>
 <body>
 <c:import url="/menu/top.do" />
-  <DIV class='title_line'>  > ${title } >파일 수정</DIV>
+  <DIV class='title_line'>  > ${bulletinname } >파일 수정</DIV>
   
   <aside class="aside_right">
-    <a href="./create.do?cateno=${cateno }">등록</a>
+    <a href="./create.do">등록</a>
     <span class='menu_divide' >│</span>
     <a href="javascript:location.reload();">새로고침</a>
   </aside>
@@ -51,11 +50,10 @@
         </DIV>
 
         <DIV style='text-align: left; width: 47%; float: left;'>
-          <span style='font-size: 1.5em;'>${title}</span>
+          <span style='font-size: 1.5em;'>${bulletinname}</span>
           <br>
           <FORM name='frm' method='POST' action='./update_file.do' enctype="multipart/form-data">
-            <input type="hidden" name="bulletinno" value="${bulletinno }">
-            <input type="hidden" name="now_page" value="${param.now_page }">
+            <input type="hidden" name="bulletinidx" value="${bulletinidx }">
                 
             <br><br> 
             변경 이미지 선택<br>  

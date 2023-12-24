@@ -9,6 +9,7 @@
 <c:set var="file1saved" value="${bulletinVO.file1saved }" />
 <c:set var="thumb1" value="${bulletinVO.thumb1 }" />
 <c:set var="size1" value="${bulletinVO.size1 }" />
+<c:set var="passwd" value="${bulletinVO.passwd }" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -32,11 +33,11 @@
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
     <c:if test="${sessionScope.admin_id != null }">
       <span class='menu_divide' >│</span>
-      <a href="./update_text.do?bulletinidx=${bulletinidx}&now_page=${param.now_page}&word=${param.word }">글 수정</a>  
+      <a href="./update_text.do?bulletinidx=${bulletinidx}">글 수정</a>  
       <span class='menu_divide' >│</span>
-      <a href="./update_file.do?bulletinidx=${bulletinidx}&now_page=${param.now_page}&word=${param.word }">사진 수정</a>  
+      <a href="./update_file.do?bulletinidx=${bulletinidx}">사진 수정</a>  
       <span class='menu_divide' >│</span>
-      <a href="./delete.do?bulletinidx=${bulletinidx}&now_page=${param.now_page}">삭제</a>  
+      <a href="./delete.do?bulletinidx=${bulletinidx}">삭제</a>  
       <span class='menu_divide' >│</span>
     </c:if>
 

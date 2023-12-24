@@ -1,9 +1,12 @@
 package dev.mvc.bulletin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberVO;
+import dev.mvc.reply.ReplyMemberVO;
 
 public interface BulletinDAOInter {
     /**
@@ -19,6 +22,13 @@ public interface BulletinDAOInter {
      * @return
      */
     public BulletinVO read(int bulletinidx);
+    
+    /**
+     * 패스워드 검사
+     * @param hashMap
+     * @return
+     */
+    public int password_check(HashMap<String, Object> hashMap);
     
     /**
      * 글 정보 수정
@@ -46,5 +56,18 @@ public interface BulletinDAOInter {
      * @return
      */
     public ArrayList<BulletinVO> list_all();
-
+    
+    /**
+     * 글 수 증가
+     * @param 
+     * @return
+     */ 
+    public int increaseReplycnt(int bulletinidx);
+   
+    /**
+     * 글 수 감소
+     * @param 
+     * @return
+     */   
+    public int decreaseReplycnt(int bulletinidx);
 }

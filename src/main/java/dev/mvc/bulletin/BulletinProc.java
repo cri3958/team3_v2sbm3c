@@ -1,17 +1,25 @@
 package dev.mvc.bulletin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberVO;
+import dev.mvc.reply.ReplyDAOInter;
+import dev.mvc.reply.ReplyMemberVO;
+import dev.mvc.tool.Tool;
 
 @Component("dev.mvc.bulletin.BulletinProc")
 public class BulletinProc implements BulletinProcInter{
     @Autowired
     private BulletinDAOInter bulletinDAO;
+    
+    @Autowired
+    private ReplyDAOInter replyDAO;
 
     @Override
     public int create(BulletinVO bulletinVO) {
@@ -32,6 +40,12 @@ public class BulletinProc implements BulletinProcInter{
         int cnt = this.bulletinDAO.delete(bulletinidx);
         return cnt;
     }
+    
+    @Override
+    public int password_check(HashMap<String, Object> hashMap) {
+      int cnt = this.bulletinDAO.password_check(hashMap);
+      return cnt;
+    }
 
     @Override
     public int update_text(BulletinVO bulletinVO) {
@@ -50,4 +64,18 @@ public class BulletinProc implements BulletinProcInter{
       ArrayList<BulletinVO> list = this.bulletinDAO.list_all();
       return list;
     }
+
+    @Override
+    public int increaseReplycnt(int bulletinidx) {
+        int count = bulletinDAO.increaseReplycnt(bulletinidx);
+        return count;
+    }
+
+    @Override
+    public int decreaseReplycnt(int bulletinidx) {
+        int count = bulletinDAO.decreaseReplycnt(bulletinidx);
+        return count;
+    }
+
+
 }

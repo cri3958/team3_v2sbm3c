@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.reply.ReplyDAOInter">
+    <insert id="create" parameterType="dev.mvc.reply.ReplyVO">
+    INSERT INTO reply(replyno, memberno, bulletinidx, replytext, passwd, rdate)
+    VALUES (REPLY_REPLYNO_SEQ.nextval, #{memberno}, #{bulletinidx}, #{replytext}, #{passwd}, sysdate)
+    </insert>
+
+  <select id="list" resultType="dev.mvc.reply.ReplyVO" parameterType="int">
+    SELECT replyno, memberno, bulletinidx, replytext, passwd, rdate
+    FROM reply
+    ORDER BY replyno DESC
+  </select>  
+
+  <select id="list_by_bulletinidx" resultType="dev.mvc.reply.ReplyVO" parameterType="int">
+    SELECT replyno, memberno, bulletinidx, replytext, passwd, rdate
+    FROM reply
+    WHERE bulletinidx=#{bulletinidx}
+    ORDER BY replyno DESC
+  </select>
+  
+  <select id="list_by_bulletinidx_join" resultType="dev.mvc.reply.ReplyMemberVO">
+    SELECT m.id, r.replyno, r.memberno, r.bulletinidx, r.replytext, r.passwd, r.rdate
+    FROM member m, reply r
+    WHERE (m.memberno = r.memberno) AND r.bulletinidx = #{bulletinidx}
+    ORDER BY r.replyno DESC
+  </select>
+  
+  <select id="list_by_bulletinidx_join_add" resultType="dev.mvc.reply.ReplyMemberVO" parameterType="int">
+  <![CDATA[
+    SELECT id, replyno, bulletinidx, memberno, content, passwd, rdate, r
+    FROM (
+        SELECT id, replyno, bulletinidx, memberno, content, passwd, rdate, rownum as r
+        FROM (
+            SELECT m.id, r.replyno, r.bulletinidx, r.memberno, r.content, r.passwd, r.rdate
+            FROM member m,  reply r
+            WHERE (m.memberno = r.memberno) AND r.bulletinidx=5
+            ORDER BY r.replyno DESC
+        )
+    )
+    WHERE r <= 1000
+    ]]>
+  </select>
+    
+   <select id="checkPasswd" parameterType="Map" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM reply
+    WHERE replyno=#{replyno} AND passwd=#{passwd}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM reply
+    WHERE replyno=#{replyno}
+  </delete>
+
+</mapper>

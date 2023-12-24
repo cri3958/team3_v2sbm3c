@@ -3,21 +3,28 @@
 
 <mapper namespace="dev.mvc.bulletin.BulletinDAOInter">
     <insert id="create" parameterType="dev.mvc.bulletin.BulletinVO">
-    INSERT INTO bulletin(bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1)
-    VALUES (BULLETIN_BULLETINIDX_SEQ.nextval, #{bulletinname}, #{bulletintext}, #{file1}, #{file1saved}, #{thumb1}, #{size1})
+    INSERT INTO bulletin(bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1, passwd)
+    VALUES (BULLETIN_BULLETINIDX_SEQ.nextval, #{bulletinname}, #{bulletintext}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{passwd})
     </insert>
 
   <select id="read" resultType="dev.mvc.bulletin.BulletinVO" parameterType="int">
-    SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1
+    SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1, passwd
     FROM bulletin
     WHERE bulletinidx = #{bulletinidx}
   </select>  
   
   <!-- 모든 등록된 게시글 목록 -->
   <select id="list_all" resultType="dev.mvc.bulletin.BulletinVO">
-    SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1
+    SELECT bulletinidx, bulletinname, bulletintext, file1, file1saved, thumb1, size1, passwd
     FROM bulletin
     ORDER BY bulletinidx DESC
+  </select>
+  
+  <!-- 패스워드 검사 -->
+  <select id="password_check" resultType="int" parameterType="HashMap">
+    SELECT COUNT(*) as cnt 
+    FROM bulletin
+    WHERE bulletinidx = #{bulletinidx} AND passwd=#{passwd}
   </select>
   
   <update id="update_text" parameterType="dev.mvc.bulletin.BulletinVO">
@@ -39,4 +46,17 @@
     WHERE bulletinidx=#{bulletinidx}
   </delete>
 
+   <!-- 댓글 수 증가 -->
+   <update id="increaseReplycnt" parameterType="int">
+     UPDATE bulletin
+     SET replycnt = replycnt + 1
+     WHERE bulletinidx = #{bulletinidx}
+   </update>
+
+   <!-- 댓글 수 감소 -->
+   <update id="decreaseReplycnt" parameterType="int">
+     UPDATE bulletin
+     SET replycnt = replycnt - 1
+     WHERE bulletinidx = #{bulletinidx}
+   </update>
 </mapper>

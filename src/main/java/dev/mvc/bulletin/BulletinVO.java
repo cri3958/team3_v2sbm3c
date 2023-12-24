@@ -10,7 +10,9 @@ public class BulletinVO {
 //            FILE1                               VARCHAR2(100)        NULL ,
 //            FILE1SAVED                          VARCHAR2(100)        NULL ,
 //            THUMB1                              VARCHAR2(100)        NULL ,
-//            SIZE1                               NUMBER(10)       DEFAULT 0       NULL 
+//            SIZE1                               NUMBER(10)       DEFAULT 0       NULL
+//            REPLYCNT                               NUMBER(10)       DEFAULT 0      NOT NULL,
+    
 //    );
     /**게시글번호*/
     private int bulletinidx;
@@ -35,6 +37,23 @@ public class BulletinVO {
     /** 메인 이미지 크기 */
     private long size1;
     
+    private long replycnt;
+    
+    public long getReplycnt() {
+        return replycnt;
+    }
+    public void setReplycnt(long replycnt) {
+        this.replycnt = replycnt;
+    }
+    /** 패스워드 */
+    private String passwd = "";
+    
+    public String getPasswd() {
+        return passwd;
+    }
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
     public MultipartFile getFile1MF() {
         return file1MF;
     }
@@ -78,7 +97,8 @@ public class BulletinVO {
     public String toString() {
         return "BulletinVO [bulletinidx=" + bulletinidx + ", bulletinname=" + bulletinname + ", bulletintext="
                 + bulletintext + ", file1MF=" + file1MF + ", size1_label=" + size1_label + ", file1=" + file1
-                + ", file1saved=" + file1saved + ", thumb1=" + thumb1 + ", size1=" + size1 + "]";
+                + ", file1saved=" + file1saved + ", thumb1=" + thumb1 + ", size1=" + size1 + ", replycnt=" + replycnt
+                + ", passwd=" + passwd + "]";
     }
     public int getBulletinidx() {
         return bulletinidx;

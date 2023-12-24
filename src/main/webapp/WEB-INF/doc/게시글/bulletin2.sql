@@ -4,13 +4,14 @@ DROP TABLE BULLETIN CASCADE CONSTRAINTS;
 /* Table Name: 게시글 */
 /**********************************/
 CREATE TABLE BULLETIN(
-		BULLETINIDX                   		INTEGER(10)		 NOT NULL		 PRIMARY KEY,
+		BULLETINIDX                   		NUMBER(10)	NOT NULL		 PRIMARY KEY,
 		BULLETINNAME                  		VARCHAR2(200)		 NOT NULL,
 		BULLETINTEXT                  		VARCHAR2(500)		 NULL ,
 		FILE1                         		VARCHAR2(100)		 NULL ,
 		FILE1SAVED                    		VARCHAR2(100)		 NULL ,
 		THUMB1                        		VARCHAR2(100)		 NULL ,
-		SIZE1                         		NUMBER(10)		 DEFAULT 0		 NULL 
+		SIZE1                         		NUMBER(10)		 DEFAULT 0		 NULL,
+        PASSWD                              VARCHAR2(15)        NOT NULL
 );
 
 DROP SEQUENCE BULLETIN_BULLETINIDX_SEQ;

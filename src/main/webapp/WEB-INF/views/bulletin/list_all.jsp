@@ -44,6 +44,7 @@
         <c:forEach var="bulletinVO" items="${list }" varStatus="info">
           <c:set var="bulletinidx" value="${bulletinVO.bulletinidx }" />
           <c:set var="file1" value="${bulletinVO.file1 }" />
+          <c:set var="passwd" value="${bulletinVO.passwd }" />
     
           <tr onclick="location.href='./read.do?bulletinidx=${bulletinidx}'" style="cursor: pointer;">
             <td>
