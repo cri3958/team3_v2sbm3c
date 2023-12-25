@@ -239,17 +239,19 @@ public class NoticesCont {
     // 검색 목록
     System.out.println("->noticesVO : "+noticesVO.toString());
     ArrayList<NoticesVO> list = this.noticesProc.list_by_search_paging(noticesVO);
-    for (int i=0;i<list.size();i++) {
-      int noticesno = list.get(i).getNoticesno();
-      int memberno = memberProc.getMemberno(session);
-      
-      HashMap<String, Object> hashMap1 = new HashMap<String, Object>();
-      hashMap1.put("memberno", memberno);
-      hashMap1.put("noticesno", noticesno);
-      
-      int cnt = this.noticesProc.favorite(hashMap1);
-      if(cnt>=1) {
-        list.get(i).setMemberno(memberno);
+    if(memberProc.isMember(session)) {
+      for (int i=0;i<list.size();i++) {
+        int noticesno = list.get(i).getNoticesno();
+        int memberno = memberProc.getMemberno(session);
+        
+        HashMap<String, Object> hashMap1 = new HashMap<String, Object>();
+        hashMap1.put("memberno", memberno);
+        hashMap1.put("noticesno", noticesno);
+        
+        int cnt = this.noticesProc.favorite(hashMap1);
+        if(cnt>=1) {
+          list.get(i).setMemberno(memberno);
+        }
       }
     }
     mav.addObject("list", list);
