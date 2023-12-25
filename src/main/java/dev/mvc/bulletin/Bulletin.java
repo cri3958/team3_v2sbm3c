@@ -21,7 +21,7 @@ public class Bulletin {
             
         } else { // Linux, AWS, 서비스용 배치 폴더 
             // System.out.println("Linux");
-            path = "/home/ubuntu/deploy/team3_v2sbm3c/bulletin/storage/";
+          path = "/home/ubuntu/deploy/team3_v2sbm3c/bulletin/storage/";
         }
         
         return path;
