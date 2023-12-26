@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.bulletin.Bulletin;
 import dev.mvc.bulletin.BulletinVO;
+import dev.mvc.member.MemberProcInter;
 import dev.mvc.bulletin.Bulletin;
 import dev.mvc.bulletin.BulletinVO;
 import dev.mvc.bulletin.Bulletin;
@@ -31,6 +32,10 @@ public class BulletinCont {
     @Autowired
     @Qualifier("dev.mvc.bulletin.BulletinProc")
     private BulletinProcInter bulletinProc;
+    
+    @Autowired
+    @Qualifier("dev.mvc.member.MemberProc")
+    private MemberProcInter memberProc;
     
     public BulletinCont(){
         System.out.println("-> BulletinCont created.");
@@ -164,7 +169,7 @@ public class BulletinCont {
     public ModelAndView list_all(HttpSession session) {
       ModelAndView mav = new ModelAndView();
       
-      if (this.adminProc.isAdmin(session) == true) {
+      if (this.memberProc.isMember(session) == true) {
         mav.setViewName("/bulletin/list_all"); // /WEB-INF/views/bulletin/list_all.jsp
         
         ArrayList<BulletinVO> list = this.bulletinProc.list_all();
