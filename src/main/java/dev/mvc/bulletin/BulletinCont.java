@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dev.mvc.admin.AdminProcInter;
 import dev.mvc.bulletin.Bulletin;
 import dev.mvc.bulletin.BulletinVO;
+import dev.mvc.contents.Contents;
 import dev.mvc.bulletin.Bulletin;
 import dev.mvc.bulletin.BulletinVO;
 import dev.mvc.bulletin.Bulletin;
@@ -83,7 +84,8 @@ public class BulletinCont {
         String file1saved = "";   // 저장된 파일명, image
         String thumb1 = "";     // preview image
 
-        String upDir = Tool.getRealPath(request, "/bulletin/storage"); // 파일을 업로드할 폴더 준비
+        String upDir =  Bulletin.getUploadDir(); // 파일을 업로드할 폴더 준비
+        //String upDir = Tool.getRealPath(request, "/bulletin/storage"); // 파일을 업로드할 폴더 준비
         System.out.println("-> upDir: " + upDir);
         
         // 전송 파일이 없어도 file1MF 객체가 생성됨.
@@ -119,7 +121,7 @@ public class BulletinCont {
           // Call By Reference: 메모리 공유, Hashcode 전달
           //int adminno = (int)session.getAttribute("adminno"); // adminno FK
           //bulletinVO.setAdminno(adminno);
-          System.out.println("->check1");
+          System.out.println("->check1 : "+bulletinVO.toString());
           int cnt = this.bulletinProc.create(bulletinVO); 
           System.out.println("->check2");
           
@@ -171,6 +173,7 @@ public class BulletinCont {
        
         // for문을 사용하여 객체를 추출, Call By Reference 기반의 원본 객체 값 변경
         for (BulletinVO bulletinVO : list) {
+          System.out.println(bulletinVO.toString());
           String title = bulletinVO.getBulletinname();
           String content = bulletinVO.getBulletintext();
           

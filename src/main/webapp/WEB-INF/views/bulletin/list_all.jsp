@@ -54,7 +54,7 @@
                   <img src="/bulletin/storage/${file1 }" style="width: 120px; height: 90px;">
                 </c:when>
                 <c:otherwise> <!-- 이미지가 없는 경우 기본 이미지 출력: /static/bulletin/images/none1.png -->
-                  <img src="/bulletin/images/none1.png" style="width: 120px; height: 90px;">
+                  <img src="/images/none1.png" style="width: 120px; height: 90px;">
                 </c:otherwise>
               </c:choose>
             </td>
