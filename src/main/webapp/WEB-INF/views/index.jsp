@@ -96,32 +96,7 @@
 <body>
 <c:import url="/menu/top.do" />
 
-<div style='margin-top:10px;'>
-  <div style='margin: 0px auto;'>
-  <!-- Fotorama data-ratio="100%/66%" -->
-  <div class="fotorama"
-         data-autoplay="1000"
-         data-nav="thumbs"
-         data-ratio="800/520"
-         data-width="100%"
-         data-height="200"
-         data-fit="contain"
-         data-transition="crossfade"
-         data-keyboard="true"
-         data-navposition="top"
-         data-loop="true">
-    <img src="/jquery/fotorama/images/winter01.jpg"> <!-- static 폴더 기준 -->     
-    <img src="/jquery/fotorama/images/winter02.jpg">
-    <img src="/jquery/fotorama/images/winter03.jpg">
-    <img src="/jquery/fotorama/images/winter04.jpg">
-    <img src="/jquery/fotorama/images/winter05.jpg">
-    <img src="/jquery/fotorama/images/winter06.jpg">
-    <img src="/jquery/fotorama/images/winter07.jpg">
-    <img src="/jquery/fotorama/images/winter08.jpg">
-    <img src="/jquery/fotorama/images/winter09.jpg">
-    <img src="/jquery/fotorama/images/winter10.jpg">   
-  </div>
-</div>
+
 
 <div id="drop-area" style="width: 600px; height: 400px; border: 2px solid; text-align: center; padding: 20px; margin:0px auto; margin-top:10px;">
   <input type="file" id="imageInput" accept="image/*" onchange="handleImageChange()">

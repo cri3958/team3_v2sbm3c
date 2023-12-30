@@ -21,7 +21,7 @@ public interface NoticesProcInter {
 
   public ArrayList<NoticesVO> list_by_search_paging(NoticesVO noticesVO);
   
-  public String pagingBox(int now_page, String list_file, int search_count);
+  public String pagingBox(int now_page, String list_file, int search_count,String word);
   
   public int favorite(HashMap<String,Object>hashMap);
 }

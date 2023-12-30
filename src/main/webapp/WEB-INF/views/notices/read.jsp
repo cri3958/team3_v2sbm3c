@@ -41,16 +41,18 @@
 
   <aside class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.admin_id != null }">
       <a href="./create.do?cateno=${cateno }">등록</a>
       <span class='menu_divide' >│</span>
       <a href="./update_text.do?noticesno=${noticesno}&now_page=${param.now_page}&word=${param.word }">글 수정</a>  
       <span class='menu_divide' >│</span>
       <a href="./delete.do?noticesno=${noticesno}&now_page=${param.now_page}">삭제</a>  
       <span class='menu_divide' >│</span>
-    </c:if>
 
     <a href="javascript:location.reload();">새로고침</a>
+            <span class='menu_divide' >│</span>    
+    <a href="./list_by_search.do?now_page=${param.now_page}&word=${param.word }">목록형</a>    
+    <span class='menu_divide' >│</span>
+    <a href="./list_by_search_grid.do?now_page=${param.now_page}&word=${param.word }">갤러리형</a>  
   </aside> 
   
   <DIV class='menu_line'></DIV>

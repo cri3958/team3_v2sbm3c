@@ -232,7 +232,7 @@
           msg += "  " + row.rdate;
           
           if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
-            msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/reply/images/delete.png'></A>";
+            msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='/images/delete.png'></A>";
           }
           msg += "  " + "<br>";
           msg += row.replytext;

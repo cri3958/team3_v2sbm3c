@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, width=device-width" /> 
-<title>http://localhost:9093/notices/list_all.do</title>
+<title>http://localhost:9093/notices/list_search.do</title>
 <link rel="shortcut icon" href="/images/star.png" /> <%-- /static 기준 --%>
 <link href="/css/style.css" rel="Stylesheet" type="text/css"> <!-- /static 기준 -->
 
@@ -30,7 +30,12 @@
     <a href="./create.do">등록하기</a>
     <span class='menu_divide' >│</span>
     <a href="javascript:location.reload();">새로고침</a>
+        <span class='menu_divide' >│</span>    
+    <a href="./list_by_search.do?now_page=${param.now_page}&word=${param.word }">목록형</a>    
+    <span class='menu_divide' >│</span>
+    <a href="./list_by_search_grid.do?now_page=${param.now_page}&word=${param.word }">갤러리형</a>  
   </aside>
+  
   
     <div style="text-align: right; clear: both;">  
     <form name='frm' id='frm' method='get' action='./list_by_search.do'>
@@ -70,7 +75,7 @@
         <c:forEach var="noticesVO" items="${list }" varStatus="info">
           <c:set var="noticesno" value="${noticesVO.noticesno }" />
     
-          <tr onclick="location.href='./read.do?noticesno=${noticesno}'" style="cursor: pointer;">
+          <tr onclick="location.href='./read.do?noticesno=${noticesno}&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'"  style="cursor: pointer;">
             <td>
          <c:choose> 
           <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
