@@ -24,4 +24,10 @@ public interface NoticesProcInter {
   public String pagingBox(int now_page, String list_file, int search_count,String word);
   
   public int favorite(HashMap<String,Object>hashMap);
+  
+  public int getrecommendpetidx(int memberno);
+  
+  public ArrayList<NoticesVO> list_by_species(HashMap<String,Object> hashMap);
+  
+  public ArrayList<NoticesVO> end_recent();
 }

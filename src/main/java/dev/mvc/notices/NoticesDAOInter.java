@@ -24,4 +24,10 @@ public interface NoticesDAOInter {
   public ArrayList<NoticesVO> list_by_search_paging(NoticesVO noticesVO);
   
   public int favorite(HashMap<String,Object>hashMap);
+  
+  public int getrecommendpetidx(int memberno);
+  
+  public ArrayList<NoticesVO> list_by_species(HashMap<String,Object> hashMap);
+  
+  public ArrayList<NoticesVO> end_recent();
 }

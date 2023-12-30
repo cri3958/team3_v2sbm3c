@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, width=device-width" /> 
-<title>http://localhost:9093/</title>
+<title>http://localhost:9093/index.do</title>
 <link rel="shortcut icon" href="/images/shortcut.png" /> <%-- /static 기준 --%>
 <link href="/css/style.css" rel="Stylesheet" type="text/css"> <!-- /static 기준 -->
 
@@ -90,13 +90,43 @@
             // Return the result (adjust as needed based on your model output)
             return "Index: "+maxIndex+" Class "+petlist[maxIndex]+", Probability: "+predictionArray[maxIndex].toFixed(4);
         }
-
+        
     </script>
 </head>
 <body>
 <c:import url="/menu/top.do" />
 
-
+<div style='margin-top:10px;'>
+  <div style='margin: 0px auto;'>
+  <!-- Fotorama data-ratio="100%/66%" -->
+  <div class="fotorama"
+         data-autoplay="1000"
+         data-nav="thumbs"
+         data-ratio="800/520"
+         data-width="100%"
+         data-height="200"
+         data-fit="contain"
+         data-click="false"
+         data-transition="crossfade"
+         data-keyboard="true"
+         data-navposition="top"
+         data-loop="true">
+    <c:forEach var="noticesVO" items="${list }" varStatus="info">
+        <c:choose> 
+          <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
+            <img src="${noticesVO.imageurl }" data-caption="${noticesVO.noticenumber }|${noticesVO.species}">
+          </c:when>
+          <c:when test="${noticesVO.imageurl=='123'}"> 
+            <img src="/images/none1.png">
+          </c:when>
+          <c:otherwise>
+            <img src="/notices/storage/${noticesVO.imageurl }">
+          </c:otherwise>
+        </c:choose>
+      
+      </c:forEach>
+  </div>
+</div>
 
 <div id="drop-area" style="width: 600px; height: 400px; border: 2px solid; text-align: center; padding: 20px; margin:0px auto; margin-top:10px;">
   <input type="file" id="imageInput" accept="image/*" onchange="handleImageChange()">
@@ -138,5 +168,6 @@
     file.files = filename;
     handleImageChange();
   });
+    
 </script>
 </html>

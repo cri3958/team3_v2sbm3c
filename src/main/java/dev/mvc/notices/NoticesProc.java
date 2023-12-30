@@ -163,4 +163,23 @@ public class NoticesProc implements NoticesProcInter {
     int cnt = this.noticesDAO.favorite(hashMap);
     return cnt;
   }
+
+  @Override
+  public int getrecommendpetidx(int memberno) {
+    int idx = this.noticesDAO.getrecommendpetidx(memberno);
+    return idx;
+  }
+
+  @Override
+  public ArrayList<NoticesVO> list_by_species(HashMap<String,Object> hashMap) {
+    System.out.println(hashMap);
+    ArrayList<NoticesVO> list = this.noticesDAO.list_by_species(hashMap);
+    return list;
+  }
+  
+  @Override
+  public ArrayList<NoticesVO> end_recent() {
+    ArrayList<NoticesVO> list = this.noticesDAO.end_recent();
+    return list;
+  }
 }

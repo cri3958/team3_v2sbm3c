@@ -91,4 +91,42 @@
     FROM FAVORITE
     WHERE memberno=#{memberno} and noticesno=#{noticesno}
   </select>
+  
+  <select id="getrecommendpetidx" resultType="int" parameterType="int">
+    SELECT
+      CASE
+        WHEN ((  SELECT NVL(COUNT(*),0)
+                FROM member_recommend
+                WHERE memberno=#{memberno}) != 0) THEN 
+                (SELECT PETIDX
+                FROM 
+            (SELECT PETIDX,RDATE
+            FROM member_recommend
+            WHERE memberno=#{memberno} 
+            ORDER BY RDATE DESC)
+            WHERE ROWNUM=1)
+        ELSE 7
+        END PETIDX
+    FROM member_recommend
+    WHERE ROWNUM=1
+  </select>
+  
+  <select id="list_by_species" resultType="dev.mvc.notices.NoticesVO" parameterType="HashMap">
+        SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm
+        FROM (
+          SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm
+          FROM NOTICES
+          WHERE species LIKE '%${label}%'
+          ORDER BY noticesno DESC)
+         WHERE <![CDATA[ ROWNUM<=10 ]]>
+  </select>
+  
+  <select id="end_recent" resultType="dev.mvc.notices.NoticesVO">
+        SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm
+        FROM (
+          SELECT noticesno, noticenumber, imageurl, receiptdate, species, gender, discoveryplace, characteristic, state, publicnoticestart, publicnoticeend, colorcd, age, weight, orgnm, careaddr, officetel, carenm
+          FROM NOTICES
+          ORDER BY publicnoticeend ASC)
+        WHERE <![CDATA[ ROWNUM<=10 ]]>
+  </select>
 </mapper>
