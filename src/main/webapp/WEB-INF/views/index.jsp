@@ -128,12 +128,12 @@
   </div>
 </div>
 
-<div id="drop-area" style="width: 600px; height: 400px; border: 2px solid; text-align: center; padding: 20px; margin:0px auto; margin-top:10px;">
+<!-- <div id="drop-area" style="width: 600px; height: 400px; border: 2px solid; text-align: center; padding: 20px; margin:0px auto; margin-top:10px;">
   <input type="file" id="imageInput" accept="image/*" onchange="handleImageChange()">
   <img id="inputImage" src="" alt="Selected Image" style="max-width: 300px;">
   <h2>Prediction:</h2>
     <div id="predictionResult"></div>
-</div>
+</div> -->
 
 
 

@@ -63,16 +63,20 @@
         <DIV style="width: 100%; word-break: break-all;">
         <c:choose> 
           <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
-            <img src="${noticesVO.imageurl }" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
+            <img src="${noticesVO.imageurl }" style='width:80%; float: center; margin-top: 0.5%; margin-right: 1%; display : block; margin : auto;'>
           </c:when>
           <c:when test="${noticesVO.imageurl=='123'}"> 
-            <img src="/images/none1.png" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
+            <img src="/images/none1.png" style='width:80%; float: center; margin-top: 0.5%; margin-right: 1%; display : block; margin : auto;'>
           </c:when>
           <c:otherwise>
-            <img src="/notices/storage/${noticesVO.imageurl }" style='width:60%; float: left; margin-top: 0.5%; margin-right: 1%;'>
+            <img src="/notices/storage/${noticesVO.imageurl }" style='width:80%; float: center; margin-top: 0.5%; margin-right: 1%; display : block; margin : auto;'>
           </c:otherwise>
         </c:choose>
-
+        
+    </DIV>
+    <br>
+    
+    <div style='text-align: center;'>
         <span>공고번호 : ${noticenumber}</span><br>
         <span>공고 접수일 : ${receiptdate}</span><br>
         <span>공고 상태 : ${state}</span><br>
@@ -89,10 +93,9 @@
         </DIV>
       </li>
     </ul>
-    <br><br>
     <ul>
      <li class="li_none">
-        <DIV style="width: 100%; word-break: break-all;">
+        <DIV style='text-align: center;'>
             <span>보호기관 관할 : ${orgnm}</span><br>
             <span>보호기관 주소 : ${careaddr}</span><br>
             <span>보호기관 전화번호 : ${officetel}</span><br>
