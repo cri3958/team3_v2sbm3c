@@ -188,7 +188,7 @@ public class BulletinCont {
         mav.addObject("list", list);
         
       } else {
-        mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+        mav.setViewName("/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
         
       }
       
@@ -281,7 +281,7 @@ public class BulletinCont {
     
         mav.setViewName("redirect:/bulletin/list_all.do"); 
       } else { // 정상적인 로그인이 아닌 경우 로그인 유도
-        mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+        mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
         mav.setViewName("redirect:/bulletin/msg.do"); 
       }
       
@@ -308,7 +308,7 @@ public class BulletinCont {
         // mav.addObject("content", content);
 
       } else {
-        mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+        mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
         mav.setViewName("redirect:/bulletin/msg.do"); 
       }
 
@@ -346,7 +346,7 @@ public class BulletinCont {
           mav.setViewName("redirect:/bulletin/msg.do");  // POST -> GET -> JSP 출력
         }
       } else { // 정상적인 로그인이 아닌 경우 로그인 유도
-        mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+        mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
         mav.setViewName("redirect:/bulletin/msg.do"); 
       }
       // URL에 파라미터의 전송
@@ -373,7 +373,7 @@ public class BulletinCont {
         mav.setViewName("/bulletin/update_file"); // /WEB-INF/views/bulletin/update_file.jsp
         
       } else {
-        mav.addObject("url", "/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+        mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
         mav.setViewName("redirect:/bulletin/msg.do"); 
       }
 
@@ -452,7 +452,7 @@ public class BulletinCont {
         mav.setViewName("redirect:/bulletin/read.do"); // request -> param으로 접근 전환
                   
       } else {
-        mav.addObject("url", "/admin/login_need"); // login_need.jsp, redirect parameter 적용
+        mav.addObject("url", "/member/login_need"); // login_need.jsp, redirect parameter 적용
         mav.setViewName("redirect:/bulletin/msg.do"); // GET
       }
      

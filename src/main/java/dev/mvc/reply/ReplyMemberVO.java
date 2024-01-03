@@ -13,6 +13,8 @@ public class ReplyMemberVO {
     private String replytext;
     private String passwd;
     private String rdate;
+    private String mname;
+    
     public String getPasswd() {
         return passwd;
     }
@@ -49,9 +51,18 @@ public class ReplyMemberVO {
     public void setReplytext(String replytext) {
         this.replytext = replytext;
     }
+    public String getMname() {
+      return mname;
+    }
+    public void setMname(String mname) {
+      this.mname = mname;
+    }
     @Override
     public String toString() {
-        return "ReplyVO [replyno=" + replyno + ", memberno=" + memberno + ", bulletinidx=" + bulletinidx
-                + ", replytext=" + replytext + ", passwd=" + passwd + ", rdate=" + rdate + "]";
+      return "ReplyMemberVO [replyno=" + replyno + ", memberno=" + memberno + ", bulletinidx=" + bulletinidx
+          + ", replytext=" + replytext + ", passwd=" + passwd + ", rdate=" + rdate + ", mname=" + mname + "]";
     }
+    
+    
+    
 }

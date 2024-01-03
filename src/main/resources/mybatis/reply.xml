@@ -21,7 +21,7 @@
   </select>
   
   <select id="list_by_bulletinidx_join" resultType="dev.mvc.reply.ReplyMemberVO">
-    SELECT m.id, r.replyno, r.memberno, r.bulletinidx, r.replytext, r.passwd, r.rdate
+    SELECT m.id, r.replyno, r.memberno, r.bulletinidx, r.replytext, r.passwd, r.rdate,m.mname
     FROM member m, reply r
     WHERE (m.memberno = r.memberno) AND r.bulletinidx = #{bulletinidx}
     ORDER BY r.replyno DESC

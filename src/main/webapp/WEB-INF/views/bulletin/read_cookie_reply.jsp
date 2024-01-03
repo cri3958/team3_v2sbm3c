@@ -226,9 +226,10 @@
         
         for (i=0; i < rdata.list.length; i++) {
           var row = rdata.list[i];
+          console.log(row);
           
           msg += "<DIV id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
-          msg += "<span style='font-weight: bold;'>" + row.id + "</span>";
+          msg += "<span style='font-weight: bold;'>" + row.mname + "</span>";
           msg += "  " + row.rdate;
           
           if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
