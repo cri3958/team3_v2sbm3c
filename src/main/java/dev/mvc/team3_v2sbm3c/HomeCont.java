@@ -36,7 +36,7 @@ public class HomeCont {
   // http://localhost:9091
   @RequestMapping(value= {"", "/", "/index.do", "/index.resort"}, method=RequestMethod.GET)
   public ModelAndView home(HttpSession session) {
-    System.out.println("-> home() ver 2.0");
+    System.out.println("-> home() ver 2.0 ");
     
     ModelAndView mav = new ModelAndView();
     ArrayList<NoticesVO> list = new ArrayList<NoticesVO>();
