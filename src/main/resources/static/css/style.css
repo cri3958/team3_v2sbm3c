@@ -21,6 +21,8 @@
     width: 100%;
     height: 176px;
     background-image: url('/images/petmate_1280.png');
+    background-repeat: no-repeat;
+    background-position:center center;
     margin-bottom: 2px;
   }
   

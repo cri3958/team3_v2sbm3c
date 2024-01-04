@@ -63,7 +63,7 @@
         <DIV style="width: 100%; word-break: break-all;">
         <c:choose> 
           <c:when test="${noticesVO.imageurl.startsWith('http://')}"> 
-            <img src="${noticesVO.imageurl }" style='width:80%; float: center; margin-top: 0.5%; margin-right: 1%; display : block; margin : auto;'>
+            <img src="${noticesVO.imageurl }" style='width:300px; height:250px; float: center; margin-top: 0.5%; margin-right: 1%; display : block; margin : auto;'>
           </c:when>
           <c:when test="${noticesVO.imageurl=='123'}"> 
             <img src="/images/none1.png" style='width:80%; float: center; margin-top: 0.5%; margin-right: 1%; display : block; margin : auto;'>

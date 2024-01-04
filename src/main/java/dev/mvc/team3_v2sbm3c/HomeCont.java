@@ -44,7 +44,7 @@ public class HomeCont {
     if (memberProc.isMember(session)) {
       int memberno = this.memberProc.getMemberno(session);
       System.out.println("-> FotoramaCont memberno: "+memberno);
-      int index = this.noticesProc.getrecommendpetidx(memberno);
+      int index = this.noticesProc.getrecommendpetidx(memberno)-1;
       String label="";
       if (index == 0) {
         label = "치와와";
