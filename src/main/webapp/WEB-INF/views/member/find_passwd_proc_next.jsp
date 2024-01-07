@@ -21,7 +21,7 @@
 <body leftmargin="0" topmargin="0">
 <!-- ----------------------------------------- -->
  
-  <form action="./find_passwd_confirm.do" method="post">
+  <form action="./find_passwd_update_passwd.do" method="post">
     <p>문자 메시지 전송후 처리되는 파일입니다.</p>
     예)<br>
     전송된 인증된 번호를 입력해주세요<br>

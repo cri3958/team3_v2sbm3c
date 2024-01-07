@@ -19,7 +19,8 @@
  
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0"> 
+<body leftmargin="0" topmargin="0">"
+ 
 <!-- ----------------------------------------- -->
  
     <DIV style="margin: 50px; font-size: 16px;">
@@ -31,7 +32,7 @@
             </c:when>
             <c:when test="${code  == 'find_id_fail'}"> <%-- Java if --%>
                 <li class='li_none'>
-                    <span class="span_fail">입력된 번호가 일치하지않습니다. 다시 인증 번호를 요청해주세요.</span>     
+                    <span class="span_fail">아이디 찾기에 실패하였습니다.</span>     
                 </li>                                                            
             </c:when>
         </c:choose>

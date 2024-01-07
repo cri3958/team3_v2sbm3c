@@ -640,9 +640,16 @@ public class MemberCont {
     String id="";
     
     if (session_auth_no.equals(auth_no)) {
-      code = "find_id_success";
-      System.out.println("find_id_success : "+session_tel);
-      id = this.memberProc.readByTel(session_tel).getId();
+      MemberVO findMemberVO = this.memberProc.readByTel(session_tel);
+      if (findMemberVO != null) {
+          code = "find_id_success";
+          System.out.println("find_id_success");
+          id = findMemberVO.getId();
+      }
+      else {
+          code = "find_id_fail";
+          System.out.println("find_id_fail");
+      }
     } else {
       code = "find_id_fail";
       System.out.println("find_id_fail");
@@ -714,7 +721,6 @@ public class MemberCont {
     
     return mav;
   }
-  
   // http://localhost:9091/sms/confirm.do
   /**
    * 문자로 전송된 번호와 사용자가 입력한 번호를 비교한 결과 화면
@@ -723,17 +729,32 @@ public class MemberCont {
    * @return
    */
   @RequestMapping(value = {"/member/find_passwd_confirm.do"}, method=RequestMethod.POST)
-  public ModelAndView passwd_confirm(HttpSession session, String auth_no, HttpServletRequest request) {
+  public ModelAndView passwd_confirm(HttpSession session) {
     ModelAndView mav = new ModelAndView();
+    
     String session_id = (String)session.getAttribute("rid");
-    int memberno = this.memberProc.readById(session_id).getMemberno();
-    session.setAttribute("memberno", memberno);
-    if(session_id != null) {
-      mav.addObject("code", "find_passwd_success");
-    }else {
-      mav.addObject("code", "find_passwd_fail");
+    int session_memberno = this.memberProc.readById(session_id).getMemberno();
+    String session_passwd = (String)session.getAttribute("passwd");
+    String session_passwd2 = (String)session.getAttribute("passwd2");
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("memberno", session_memberno);
+    map.put("passwd", session_passwd);
+    
+    if (session_passwd.equals(session_passwd2)) {
+        int update_cnt = 0;
+        update_cnt = this.memberProc.passwd_update(map);
+        if (update_cnt == 1) {
+            mav.addObject("code", "passwd_update_success"); // 패스워드 변경 성공
+        } else {
+           mav.addObject("code", "passwd_update_fail");       // 패스워드 변경 실패
+        }
     }
-    mav.setViewName("/member/find_passwd_confirm");  
+    else {
+        mav.addObject("code", "passwd_update_fail");
+    }
+    mav.setViewName("/member/find_passwd_confirm");  // /WEB-INF/views/sms/proc_next.jsp
+    
+
     return mav;
   }
   
@@ -757,7 +778,9 @@ public class MemberCont {
        MemberVO testVO1 = this.memberProc.readById(session_id);
        MemberVO testVO2 = this.memberProc.readByTel(session_tel);
        if (testVO1.getMemberno() == testVO2.getMemberno()) {
-          mav.addObject("code", "passwd_update_check_success");
+          //mav.addObject("code", "passwd_update_check_success");
+         mav.setViewName("/member/passwd_update");
+         return mav;
        }
        else {
            mav.addObject("code", "passwd_update_check_fail");
@@ -771,33 +794,5 @@ public class MemberCont {
    return mav; // forward
  }
  
-// @RequestMapping(value = {"/member/find_passwd_confirm.do"}, method=RequestMethod.POST)
-// public ModelAndView passwd_confirm(HttpSession session) {
-//   ModelAndView mav = new ModelAndView();
-//   
-//   String session_id = (String)session.getAttribute("rid");
-//   int session_memberno = this.memberProc.readById(session_id).getMemberno();
-//   String session_passwd = (String)session.getAttribute("passwd");
-//   String session_passwd2 = (String)session.getAttribute("passwd2");
-//   HashMap<String, Object> map = new HashMap<String, Object>();
-//   map.put("memberno", session_memberno);
-//   map.put("passwd", session_passwd);
-//   
-//   if (session_passwd.equals(session_passwd2)) {
-//       int update_cnt = 0;
-//       update_cnt = this.memberProc.passwd_update(map);
-//       if (update_cnt == 1) {
-//           mav.addObject("code", "passwd_update_success"); // 패스워드 변경 성공
-//       } else {
-//          mav.addObject("code", "passwd_update_fail");       // 패스워드 변경 실패
-//       }
-//   }
-//   else {
-//       mav.addObject("code", "passwd_update_fail");
-//   }
-//   mav.setViewName("/member/find_passwd_confirm");  // /WEB-INF/views/sms/proc_next.jsp
-//   
-//   return mav;
-// }
 }
 
