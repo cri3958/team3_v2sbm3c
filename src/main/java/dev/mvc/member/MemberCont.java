@@ -640,9 +640,16 @@ public class MemberCont {
     String id="";
     
     if (session_auth_no.equals(auth_no)) {
-      code = "find_id_success";
-      System.out.println("find_id_success");
-      id = this.memberProc.readByTel(session_tel).getId();
+      MemberVO findMemberVO = this.memberProc.readByTel(session_tel);
+      if (findMemberVO != null) {
+          code = "find_id_success";
+          System.out.println("find_id_success");
+          id = findMemberVO.getId();
+      }
+      else {
+          code = "find_id_fail";
+          System.out.println("find_id_fail");
+      }
     } else {
       code = "find_id_fail";
       System.out.println("find_id_fail");
