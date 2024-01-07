@@ -601,7 +601,7 @@ public class MemberCont {
     // 번호, 전화 번호, ip, auth_no, 날짜 -> SMS Oracle table 등록, 문자 전송 내역 관리 목적으로 저장(필수 아니나 권장)
     
     String msg = "[www.pet.co.kr] [" + auth_no + "]을 인증번호란에 입력해주세요.";
-    System.out.print(msg);
+    System.out.println(msg);
     
     mav.addObject("msg", msg); // request.setAttribute("msg")
     mav.setViewName("/member/find_id_proc");  // /WEB-INF/views/sms/proc.jsp
@@ -641,7 +641,7 @@ public class MemberCont {
     
     if (session_auth_no.equals(auth_no)) {
       code = "find_id_success";
-      System.out.println("find_id_success");
+      System.out.println("find_id_success : "+session_tel);
       id = this.memberProc.readByTel(session_tel).getId();
     } else {
       code = "find_id_fail";
@@ -684,17 +684,17 @@ public class MemberCont {
     }
     session.setAttribute("auth_no", auth_no); // 생성된 번호를 비교를위하여 session 에 저장
     session.setAttribute("rid", request.getParameter("rid"));
-    System.out.print("-> ID:" +request.getParameter("rid"));
+    System.out.println("-> ID:" +request.getParameter("rid"));
     session.setAttribute("tel", request.getParameter("rphone"));
     //    System.out.println(auth_no);   
     // ------------------------------------------------------------------------------------------------------
     
-    System.out.println("-> IP:" + request.getRemoteAddr()); // 접속자의 IP 수집
+    //System.out.println("-> IP:" + request.getRemoteAddr()); // 접속자의 IP 수집
     
     // 번호, 전화 번호, ip, auth_no, 날짜 -> SMS Oracle table 등록, 문자 전송 내역 관리 목적으로 저장(필수 아니나 권장)
     
     String msg = "[www.pet.co.kr] [" + auth_no + "]을 인증번호란에 입력해주세요.";
-    System.out.print(msg);
+    System.out.println(msg);
     
     mav.addObject("msg", msg); // request.setAttribute("msg")
     mav.setViewName("/member/find_passwd_proc");  // /WEB-INF/views/sms/proc.jsp
@@ -723,34 +723,81 @@ public class MemberCont {
    * @return
    */
   @RequestMapping(value = {"/member/find_passwd_confirm.do"}, method=RequestMethod.POST)
-  public ModelAndView passwd_confirm(HttpSession session, String auth_no, String passwd) {
+  public ModelAndView passwd_confirm(HttpSession session, String auth_no, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
-    
-    String session_auth_no = (String)session.getAttribute("auth_no"); // 사용자에게 전송된 번호 session에서 꺼냄
     String session_id = (String)session.getAttribute("rid");
-    String session_tel = (String)session.getAttribute("tel");
-    
-    String code="";
-    String id="";
-    
-    HashMap<String, Object> map = new HashMap<String, Object>();
-    map.put("memberno", this.memberProc.readById(session_id).getMemberno());
-    map.put("passwd", this.memberProc.readById(session_id).getPasswd());
-    
-    int cnt = this.memberProc.passwd_check(map); // 현재 패스워드 검사
-    map.put("passwd", passwd);
-    int update_cnt = 0; // 변경된 패스워드 수
-    
-    update_cnt = this.memberProc.passwd_update(map);
-    if (update_cnt == 1) {
-        mav.addObject("code", "passwd_update_success"); // 패스워드 변경 성공
-      } else {
-        cnt = 0;  // 패스워드는 일치했으나 변경하지는 못함.
-        mav.addObject("code", "passwd_update_fail");       // 패스워드 변경 실패
-      }   
+    int memberno = this.memberProc.readById(session_id).getMemberno();
+    session.setAttribute("memberno", memberno);
+    if(session_id != null) {
+      mav.addObject("code", "find_passwd_success");
+    }else {
+      mav.addObject("code", "find_passwd_fail");
+    }
     mav.setViewName("/member/find_passwd_confirm");  
-    
     return mav;
   }
+  
+//http://localhost:9091/sms/confirm.do
+ /**
+  * 문자로 전송된 번호와 사용자가 입력한 번호를 비교한 결과 화면
+  * @param session 사용자당 할당된 서버의 메모리
+  * @param auth_no 사용자가 입력한 번호
+  * @return
+  */
+ @RequestMapping(value = {"/member/find_passwd_update_passwd.do"}, method=RequestMethod.POST)
+ public ModelAndView passwd_update_passwd(HttpSession session, HttpServletRequest request, String auth_no) {
+   ModelAndView mav = new ModelAndView();
+   
+   String session_auth_no = (String)session.getAttribute("auth_no"); // 사용자에게 전송된 번호 session에서 꺼냄
+   String session_id = (String)session.getAttribute("rid");
+   String session_tel = (String)session.getAttribute("tel");
+   String passwd1 = (String)request.getParameter("passwd");
+   String passwd2 = (String)request.getParameter("passwd2");
+   if (session_auth_no.equals(auth_no)) {
+       MemberVO testVO1 = this.memberProc.readById(session_id);
+       MemberVO testVO2 = this.memberProc.readByTel(session_tel);
+       if (testVO1.getMemberno() == testVO2.getMemberno()) {
+          mav.addObject("code", "passwd_update_check_success");
+       }
+       else {
+           mav.addObject("code", "passwd_update_check_fail");
+       }
+   }
+   else {
+       mav.addObject("code", "passwd_update_check_fail");
+   } 
+   mav.setViewName("/member/find_passwd_update_passwd"); // /WEB-INF/views/member/create.jsp
+   
+   return mav; // forward
+ }
+ 
+// @RequestMapping(value = {"/member/find_passwd_confirm.do"}, method=RequestMethod.POST)
+// public ModelAndView passwd_confirm(HttpSession session) {
+//   ModelAndView mav = new ModelAndView();
+//   
+//   String session_id = (String)session.getAttribute("rid");
+//   int session_memberno = this.memberProc.readById(session_id).getMemberno();
+//   String session_passwd = (String)session.getAttribute("passwd");
+//   String session_passwd2 = (String)session.getAttribute("passwd2");
+//   HashMap<String, Object> map = new HashMap<String, Object>();
+//   map.put("memberno", session_memberno);
+//   map.put("passwd", session_passwd);
+//   
+//   if (session_passwd.equals(session_passwd2)) {
+//       int update_cnt = 0;
+//       update_cnt = this.memberProc.passwd_update(map);
+//       if (update_cnt == 1) {
+//           mav.addObject("code", "passwd_update_success"); // 패스워드 변경 성공
+//       } else {
+//          mav.addObject("code", "passwd_update_fail");       // 패스워드 변경 실패
+//       }
+//   }
+//   else {
+//       mav.addObject("code", "passwd_update_fail");
+//   }
+//   mav.setViewName("/member/find_passwd_confirm");  // /WEB-INF/views/sms/proc_next.jsp
+//   
+//   return mav;
+// }
 }
 
