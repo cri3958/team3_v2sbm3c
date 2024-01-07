@@ -778,9 +778,7 @@ public class MemberCont {
        MemberVO testVO1 = this.memberProc.readById(session_id);
        MemberVO testVO2 = this.memberProc.readByTel(session_tel);
        if (testVO1.getMemberno() == testVO2.getMemberno()) {
-          //mav.addObject("code", "passwd_update_check_success");
-         mav.setViewName("/member/passwd_update");
-         return mav;
+          mav.addObject("code", "passwd_update_check_success");
        }
        else {
            mav.addObject("code", "passwd_update_check_fail");
