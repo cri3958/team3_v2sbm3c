@@ -131,6 +131,12 @@ public class MemberProc implements MemberProcInter {
     
     return 0;
   }
+
+@Override
+public MemberVO readByTel(String tel) {
+    MemberVO memberVO = this.memberDAO.readByTel(tel);
+    return memberVO;
+}
   
 }
 

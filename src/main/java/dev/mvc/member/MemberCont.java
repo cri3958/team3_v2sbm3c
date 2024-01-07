@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -562,5 +563,194 @@ public class MemberCont {
   }
   
   
+  
+  @RequestMapping(value = {"/member/find_id_form.do"}, method=RequestMethod.GET)
+  public ModelAndView form() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/find_id_form");  // /WEB-INF/views/sms/form.jsp
+    
+    return mav;
+  }
+  
+  // http://localhost:9091/sms/proc.do
+  /**
+   * 사용자에게 인증 번호를 생성하여 전송
+   * @param session
+   * @param request
+   * @return
+   */
+  @RequestMapping(value = {"/member/find_id_proc.do"}, method=RequestMethod.POST)
+  public ModelAndView proc(HttpSession session, HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView();
+    
+    // ------------------------------------------------------------------------------------------------------
+    // 0 ~ 9, 번호 6자리 생성
+    // ------------------------------------------------------------------------------------------------------
+    String auth_no = "";
+    Random random = new Random();
+    for (int i=0; i<= 5; i++) {
+      auth_no = auth_no + random.nextInt(10); // 0 ~ 9, 번호 6자리 생성
+    }
+    session.setAttribute("auth_no", auth_no); // 생성된 번호를 비교를위하여 session 에 저장
+    session.setAttribute("tel", request.getParameter("rphone"));
+    //    System.out.println(auth_no);   
+    // ------------------------------------------------------------------------------------------------------
+    
+    System.out.println("-> IP:" + request.getRemoteAddr()); // 접속자의 IP 수집
+    
+    // 번호, 전화 번호, ip, auth_no, 날짜 -> SMS Oracle table 등록, 문자 전송 내역 관리 목적으로 저장(필수 아니나 권장)
+    
+    String msg = "[www.pet.co.kr] [" + auth_no + "]을 인증번호란에 입력해주세요.";
+    System.out.print(msg);
+    
+    mav.addObject("msg", msg); // request.setAttribute("msg")
+    mav.setViewName("/member/find_id_proc");  // /WEB-INF/views/sms/proc.jsp
+    
+    return mav;
+  }
+  
+  // http://localhost:9091/sms/proc_next.do
+  /**
+   * 사용자가 수신받은 인증번호 입력 화면
+   * @return
+   */
+  @RequestMapping(value = {"/member/find_id_proc_next.do"}, method=RequestMethod.GET)
+  public ModelAndView proc_next() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/find_id_proc_next");  // /WEB-INF/views/sms/proc_next.jsp
+    
+    return mav;
+  }
+  
+  // http://localhost:9091/sms/confirm.do
+  /**
+   * 문자로 전송된 번호와 사용자가 입력한 번호를 비교한 결과 화면
+   * @param session 사용자당 할당된 서버의 메모리
+   * @param auth_no 사용자가 입력한 번호
+   * @return
+   */
+  @RequestMapping(value = {"/member/find_id_confirm.do"}, method=RequestMethod.POST)
+  public ModelAndView confirm(HttpSession session, String auth_no) {
+    ModelAndView mav = new ModelAndView();
+    
+    String session_auth_no = (String)session.getAttribute("auth_no"); // 사용자에게 전송된 번호 session에서 꺼냄
+    String session_tel = (String)session.getAttribute("tel");
+    
+    String code="";
+    String id="";
+    
+    if (session_auth_no.equals(auth_no)) {
+      code = "find_id_success";
+      System.out.println("find_id_success");
+      id = this.memberProc.readByTel(session_tel).getId();
+    } else {
+      code = "find_id_fail";
+      System.out.println("find_id_fail");
+    }
+    
+    mav.addObject("code", code);
+    mav.addObject("id", id);
+    mav.setViewName("/member/find_id_confirm");  
+    
+    return mav;
+  }
+  
+  @RequestMapping(value = {"/member/find_passwd_form.do"}, method=RequestMethod.GET)
+  public ModelAndView passwd_form() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/find_passwd_form");  // /WEB-INF/views/sms/form.jsp
+    
+    return mav;
+  }
+  
+  // http://localhost:9091/sms/proc.do
+  /**
+   * 사용자에게 인증 번호를 생성하여 전송
+   * @param session
+   * @param request
+   * @return
+   */
+  @RequestMapping(value = {"/member/find_passwd_proc.do"}, method=RequestMethod.POST)
+  public ModelAndView passwd_proc(HttpSession session, HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView();
+    
+    // ------------------------------------------------------------------------------------------------------
+    // 0 ~ 9, 번호 6자리 생성
+    // ------------------------------------------------------------------------------------------------------
+    String auth_no = "";
+    Random random = new Random();
+    for (int i=0; i<= 5; i++) {
+      auth_no = auth_no + random.nextInt(10); // 0 ~ 9, 번호 6자리 생성
+    }
+    session.setAttribute("auth_no", auth_no); // 생성된 번호를 비교를위하여 session 에 저장
+    session.setAttribute("rid", request.getParameter("rid"));
+    System.out.print("-> ID:" +request.getParameter("rid"));
+    session.setAttribute("tel", request.getParameter("rphone"));
+    //    System.out.println(auth_no);   
+    // ------------------------------------------------------------------------------------------------------
+    
+    System.out.println("-> IP:" + request.getRemoteAddr()); // 접속자의 IP 수집
+    
+    // 번호, 전화 번호, ip, auth_no, 날짜 -> SMS Oracle table 등록, 문자 전송 내역 관리 목적으로 저장(필수 아니나 권장)
+    
+    String msg = "[www.pet.co.kr] [" + auth_no + "]을 인증번호란에 입력해주세요.";
+    System.out.print(msg);
+    
+    mav.addObject("msg", msg); // request.setAttribute("msg")
+    mav.setViewName("/member/find_passwd_proc");  // /WEB-INF/views/sms/proc.jsp
+    
+    return mav;
+  }
+  
+  // http://localhost:9091/sms/proc_next.do
+  /**
+   * 사용자가 수신받은 인증번호 입력 화면
+   * @return
+   */
+  @RequestMapping(value = {"/member/find_passwd_proc_next.do"}, method=RequestMethod.GET)
+  public ModelAndView passwd_proc_next() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/find_passwd_proc_next");  // /WEB-INF/views/sms/proc_next.jsp
+    
+    return mav;
+  }
+  
+  // http://localhost:9091/sms/confirm.do
+  /**
+   * 문자로 전송된 번호와 사용자가 입력한 번호를 비교한 결과 화면
+   * @param session 사용자당 할당된 서버의 메모리
+   * @param auth_no 사용자가 입력한 번호
+   * @return
+   */
+  @RequestMapping(value = {"/member/find_passwd_confirm.do"}, method=RequestMethod.POST)
+  public ModelAndView passwd_confirm(HttpSession session, String auth_no, String passwd) {
+    ModelAndView mav = new ModelAndView();
+    
+    String session_auth_no = (String)session.getAttribute("auth_no"); // 사용자에게 전송된 번호 session에서 꺼냄
+    String session_id = (String)session.getAttribute("rid");
+    String session_tel = (String)session.getAttribute("tel");
+    
+    String code="";
+    String id="";
+    
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("memberno", this.memberProc.readById(session_id).getMemberno());
+    map.put("passwd", this.memberProc.readById(session_id).getPasswd());
+    
+    int cnt = this.memberProc.passwd_check(map); // 현재 패스워드 검사
+    map.put("passwd", passwd);
+    int update_cnt = 0; // 변경된 패스워드 수
+    
+    update_cnt = this.memberProc.passwd_update(map);
+    if (update_cnt == 1) {
+        mav.addObject("code", "passwd_update_success"); // 패스워드 변경 성공
+      } else {
+        cnt = 0;  // 패스워드는 일치했으나 변경하지는 못함.
+        mav.addObject("code", "passwd_update_fail");       // 패스워드 변경 실패
+      }   
+    mav.setViewName("/member/find_passwd_confirm");  
+    
+    return mav;
+  }
 }
 

@@ -10,7 +10,9 @@ import java.util.List;
 // Payend pay = new Payend2023();
 // Payend pay = new Payend2024();
 // pay.calc();
-import java.util.Map;         
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;         
 
 public interface MemberDAOInter {
   /**
@@ -79,6 +81,10 @@ public interface MemberDAOInter {
    * 로그인 처리
    */
   public int login(HashMap<String, Object> map);
+  
+  public int getMemberno(HttpSession session);
+  
+  public MemberVO readByTel(String tel);
   
 }
  

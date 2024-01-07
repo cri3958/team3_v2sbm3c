@@ -65,6 +65,12 @@
     SET passwd=#{passwd}
     WHERE memberno=#{memberno}
   </update>
+  
+  <select id="readByTel" resultType="dev.mvc.member.MemberVO" parameterType="String">
+    SELECT memberno, id, passwd, mname, tel, zipcode, address1, address2, mdate, grade
+    FROM member
+    WHERE tel = #{tel}
+  </select>
         
 </mapper> 
 

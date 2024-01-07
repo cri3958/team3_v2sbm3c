@@ -75,8 +75,8 @@
                 <c:choose>
                   <c:when test="${sessionScope.id == null }">
                     <a class="dropdown-item" href="/member/create.do">회원 가입</a>
-                    <a class="dropdown-item" href="#">아이디 찾기</a>
-                    <a class="dropdown-item" href="#">비밀번호 찾기</a>
+                    <a class="dropdown-item" href="/member/find_id_form.do">아이디 찾기</a>
+                    <a class="dropdown-item" href="/member/find_passwd_form.do">비밀번호 찾기</a>
                   </c:when>
                   <c:otherwise>
                   <a class="dropdown-item" href="http://3.37.75.65:8000/ais/recommend_form/?memberno=${sessionScope.memberno }">관심분야 등록하고 추천받기</a>

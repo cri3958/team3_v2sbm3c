@@ -95,6 +95,8 @@ public interface MemberProcInter {
    * @return memberno
    */
   public int getMemberno(HttpSession session);
+  
+  public MemberVO readByTel(String tel);
 }
 
 
