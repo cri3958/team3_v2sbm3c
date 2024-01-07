@@ -10,7 +10,7 @@
  
 <body>
   <div style='margin: 50px;'>
-    <form name="smsForm" action="./find_id_proc.do" method="post">
+    <form name="smsForm" action="./find_passwd_proc.do" method="post">
       <input type="hidden" name="action" value="go"> 
       <input type="hidden" name="smsType" value="S"> <!-- 발송 타입 -->
       <input type="hidden" name="subject" value=""> <!-- 장문(LMS)인 경우(한글30자이내) -->
