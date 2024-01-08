@@ -25,14 +25,14 @@
       
       <div class="form-group">
         <label>전화 번호 입력:
-            <input type='text' name='rphone' value='010-' placeholder="전화 번호" autofocus="autofocus">
+            <input type='text' name='rphone' value='010-9216-1294' placeholder="전화 번호" autofocus="autofocus">
         예) 010-0112-1112 , '-' 포함해서 입력...
         </label>
         </div>
         
         <div class="form-group">
         <label>아이디 입력:
-            <input type='text' name='rid' value='.' placeholder="아이디" autofocus="autofocus">
+            <input type='text' name='rid' value='qjfjrdl1001@gmail.com' placeholder="아이디" autofocus="autofocus">
         해당 번호로 만든 아이디
         </label>
         </div>  
