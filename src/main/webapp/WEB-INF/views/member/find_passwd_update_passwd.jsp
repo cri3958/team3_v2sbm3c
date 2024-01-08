@@ -8,6 +8,8 @@
 <title></title> 
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  
@@ -19,12 +21,13 @@
  
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0"> 
+<body> 
 <!-- ----------------------------------------- -->
- <c:import url="/menu/top.do" />
     <DIV style="margin: 50px; font-size: 16px;">
+    
             <c:choose>
         <c:when test="${code == 'passwd_update_check_success'}"> <%-- Java if --%>
+            <c:import url="/menu/top.do" />
                       <form action="./find_passwd_confirm.do" method="post">
                 <li class='li_none'>
                 <input type="hidden" name="rid" value=${rid}>
@@ -45,6 +48,7 @@
         </c:when>   
         
         <c:when test="${code == 'passwd_update_check_fail'}"> <%-- Java if --%>
+        <c:import url="/menu/top.do" />
           <li class='li_none'>
             <span class="span_fail">패스워드 변경에 실패했습니다.</span>
           </li>                                                                      
