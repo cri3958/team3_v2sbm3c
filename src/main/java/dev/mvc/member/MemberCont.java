@@ -729,13 +729,13 @@ public class MemberCont {
    * @return
    */
   @RequestMapping(value = {"/member/find_passwd_confirm.do"}, method=RequestMethod.POST)
-  public ModelAndView passwd_confirm(HttpSession session) {
+  public ModelAndView passwd_confirm(HttpSession session, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
     
     String session_id = (String)session.getAttribute("rid");
     int session_memberno = this.memberProc.readById(session_id).getMemberno();
-    String session_passwd = (String)session.getAttribute("passwd");
-    String session_passwd2 = (String)session.getAttribute("passwd2");
+    String session_passwd = (String)request.getParameter("passwd");
+    String session_passwd2 = (String)request.getParameter("passwd2");
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("memberno", session_memberno);
     map.put("passwd", session_passwd);
