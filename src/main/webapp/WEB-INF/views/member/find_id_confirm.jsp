@@ -20,7 +20,7 @@
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">"
- 
+ <c:import url="/menu/top.do" />
 <!-- ----------------------------------------- -->
  
     <DIV style="margin: 50px; font-size: 16px;">
@@ -37,7 +37,7 @@
             </c:when>
         </c:choose>
     </DIV>
- 
+  <jsp:include page="../menu/bottom.jsp" flush='false' />
 <!-- -------------------------------------------- -->
 </body>
 <!-- -------------------------------------------- -->

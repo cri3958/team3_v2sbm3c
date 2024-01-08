@@ -777,11 +777,16 @@ public class MemberCont {
    if (session_auth_no.equals(auth_no)) {
        MemberVO testVO1 = this.memberProc.readById(session_id);
        MemberVO testVO2 = this.memberProc.readByTel(session_tel);
-       if (testVO1.getMemberno() == testVO2.getMemberno()) {
-          mav.addObject("code", "passwd_update_check_success");
+       if (testVO1 == null || testVO2 == null) {
+           mav.addObject("code", "passwd_update_check_fail");
        }
        else {
-           mav.addObject("code", "passwd_update_check_fail");
+           if (testVO1.getMemberno() == testVO2.getMemberno()) {
+               mav.addObject("code", "passwd_update_check_success");
+            }
+            else {
+                mav.addObject("code", "passwd_update_check_fail");
+            }
        }
    }
    else {

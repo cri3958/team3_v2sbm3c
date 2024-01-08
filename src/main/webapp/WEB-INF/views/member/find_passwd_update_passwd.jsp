@@ -21,7 +21,7 @@
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0"> 
 <!-- ----------------------------------------- -->
- 
+ <c:import url="/menu/top.do" />
     <DIV style="margin: 50px; font-size: 16px;">
             <c:choose>
         <c:when test="${code == 'passwd_update_check_success'}"> <%-- Java if --%>
@@ -52,7 +52,7 @@
         </c:choose>
                                                      
     </DIV>
- 
+  <jsp:include page="../menu/bottom.jsp" flush='false' />
 <!-- -------------------------------------------- -->
 </body>
 <!-- -------------------------------------------- -->

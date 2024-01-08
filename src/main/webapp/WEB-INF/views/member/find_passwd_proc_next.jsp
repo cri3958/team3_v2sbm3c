@@ -19,6 +19,7 @@
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
+<c:import url="/menu/top.do" />
 <!-- ----------------------------------------- -->
  
   <form action="./find_passwd_update_passwd.do" method="post">
@@ -28,7 +29,7 @@
     <input type='text' name='auth_no' size='15' autofocus="autofocus">
     <button type='submit'>인증 확인</button> 
   </form>
- 
+  <jsp:include page="../menu/bottom.jsp" flush='false' />
 <!-- -------------------------------------------- -->
 </body>
 <!-- -------------------------------------------- -->

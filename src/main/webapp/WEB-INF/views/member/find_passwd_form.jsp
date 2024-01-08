@@ -9,6 +9,7 @@
 </head>
  
 <body>
+<c:import url="/menu/top.do" />
   <div style='margin: 50px;'>
     <form name="smsForm" action="./find_passwd_proc.do" method="post">
       <input type="hidden" name="action" value="go"> 
@@ -40,6 +41,7 @@
       발송되지 않습니다.
     </form>
   </div>
+   <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
  
 </html>

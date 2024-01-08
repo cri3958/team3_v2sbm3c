@@ -20,7 +20,7 @@
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
 <!-- ----------------------------------------- -->
- 
+ <c:import url="/menu/top.do" />
   <form action="./find_id_confirm.do" method="post">
     <p>문자 메시지 전송후 처리되는 파일입니다.</p>
     예)<br>
@@ -28,7 +28,7 @@
     <input type='text' name='auth_no' size='15' autofocus="autofocus">
     <button type='submit'>인증 확인</button> 
   </form>
- 
+  <jsp:include page="../menu/bottom.jsp" flush='false' />
 <!-- -------------------------------------------- -->
 </body>
 <!-- -------------------------------------------- -->
