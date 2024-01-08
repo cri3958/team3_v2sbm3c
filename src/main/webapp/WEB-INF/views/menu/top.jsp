@@ -38,7 +38,7 @@
           <ul class="navbar-nav mr-auto">
           
           <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-              <a class="nav-link top_menu_link" href="/notices/list_by_search.do?now_page=1">공고목록 전체보기</a>
+              <a class="nav-link top_menu_link" href="/notices/list_by_search.do?now_page=1">공고목록</a>
             </li>
             <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
 
@@ -47,7 +47,7 @@
                     
                   </c:when>
                   <c:otherwise>
-                          <a class="nav-link top_menu_link" href="/favorite/list_by_memberno.do?now_page=1">즐겨찾기 공고 모아보기</a>
+                          <a class="nav-link top_menu_link" href="/favorite/list_by_memberno.do?now_page=1">공고 즐겨찾기</a>
                   </c:otherwise>
                 </c:choose>
             </li>
@@ -117,6 +117,9 @@
                       <a class="nav-link top_menu_link" href='/member/logout.do'>${sessionScope.id } 로그아웃</a>
                   </c:otherwise>
               </c:choose>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link top_menu_link" href="http://3.34.34.132:3000">긴급 공지사항</a>
             </li>     
           </ul>
       </div>    
